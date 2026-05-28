@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="boot-screen">
+        <div class="loader"></div>
+        <p data-i18n="load">Trwa ładowanie systemu Aleksander OS...</p>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <h1>Aleksander Zientara</h1>
+            <div class="nav-controls">
+                <button id="theme-toggle" class="theme-btn" data-i18n="theme-dark">Tryb ciemny</button>
+                <button id="action-center-btn" class="theme-btn" data-i18n="panel">Panel akcji</button>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#skills" data-i18n="nav-skills">Umiejętności</a></li>
+                <li><a href="#projects" data-i18n="nav-projects">Projekty</a></li>
+                <li><a href="#contact" data-i18n="nav-contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="profile-section">
+            <div class="profile-container">
+                <div class="profile-layout">
+                    <div class="outer-frame-large">
+                        <div class="outer-frame-middle">
+                            <div class="image-frame" id="my-image-frame">
+                                <img src="mzdj.jpg" alt="Moje zdjęcie" id="profile-img" draggable="false">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-text">
+                        <h2 data-i18n="about-title">O mnie</h2>
+                        <p data-i18n="about-text">Cześć! Jestem Aleksander, uczeń technikum informatycznego. Jestem dumnym gejem i aktywnie działam na rzecz widoczności społeczności LGBTQ+ w świecie IT. Poza kodowaniem i tworzeniem inkluzywnych projektów, moją wielką pasją jest kolarstwo. Uwielbiam pokonywać kilometry na moim rowerze aero, najchętniej w towarzystwie mojego chłopaka, Ignacego.</p>
+                        
+                        <div class="about-actions" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start;">
+                            <button id="learn-more-btn" class="theme-btn" data-i18n="learn-more-btn">Dowiedz się więcej</button>
+                            
+                            <p id="hidden-boyfriends-text" style="display: none; font-style: italic; opacity: 0.8; margin: 10px 0;" data-i18n="hidden-boyfriends-text">Tak naprawdę miałem 3 chłopaków a teraz dwóch</p>
+                            
+                            <div id="hidden-actions" style="display: none; gap: 10px; flex-direction: column; align-items: flex-start;">
+                                <button id="meet-boys-btn" class="theme-btn" data-i18n="meet-boys-btn">Zapoznaj moich chłopaków</button>
+                                <button id="femboy-btn" class="theme-btn" data-i18n="femboy-btn" style="background-color: var(--metro-purple); color: white; border-color: var(--metro-purple);">Zostań moim chłopakiem (femboyem)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-buttons">
+                    <button id="rotate-photo-btn" class="theme-btn" data-i18n="rotate-btn">Obróć zdjęcie</button>
+                    <button id="switch-photo-btn" class="theme-btn" data-i18n="switch-btn">Zmień zdjęcie</button>
+                </div>
+            </div>
+        </div>
+
+        <section id="skills" class="section">
+            <h2 data-i18n="title-skills">Moje Umiejętności</h2>
+            <div class="grid">
+                <div class="tile blue">HTML5</div>
+                <div class="tile green">CSS / SCSS</div>
+                <div class="tile purple">JavaScript</div>
+                <div class="tile orange">Python</div>
+                <div class="tile teal">Git</div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Wybrane Projekty</h2>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" data-i18n="filter-all">Wszystkie</button>
+                <button class="filter-btn" data-filter="js">JavaScript</button>
+                <button class="filter-btn" data-filter="web" data-i18n="filter-web">Strony WWW</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-tile" data-category="js" data-description="Prosty, w pełni działający kalkulator napisany w czystym JavaScript. Obsługuje podstawowe operacje matematyczne, historię wyników oraz obsługę za pomocą klawiatury.">
+                    <h3>Kalkulator</h3>
+                    <p>Aplikacja w JS</p>
+                </div>
+                <div class="project-tile" data-category="js" data-description="Klasyczna gra Snake zaimplementowana przy użyciu HTML5 Canvas. Oferuje system punktacji, rosnący poziom trudności i efekty dźwiękowe.">
+                    <h3>Gra Snake</h3>
+                    <p>Canvas i JS</p>
+                </div>
+                <div class="project-tile" data-category="web" data-description="W pełni responsywna wizytówka szkoły. Wykorzystuje zaawansowany grid, flexbox oraz animacje CSS. Kod strukturyzowany z użyciem SCSS.">
+                    <h3>Strona Szkoły</h3>
+                    <p>HTML & SCSS</p>
+                </div>
+                <div class="project-tile" data-category="js" data-description="Aplikacja łącząca się z zewnętrznym API pogodowym (OpenWeatherMap). Pozwala na wyszukiwanie miast i wyświetla dynamiczne tło zależne od aktualnej aury.">
+                    <h3>Aplikacja Pogodowa</h3>
+                    <p>Fetch API & JS</p>
+                </div>
+                <div class="project-tile" data-category="web" data-description="Makieta sklepu internetowego z systemem dodawania do koszyka opartym o localStorage. Interfejs stylizowany w duchu minimalizmu z własnym systemem powiadomień.">
+                    <h3>Sklep E-commerce</h3>
+                    <p>HTML, CSS & JS</p>
+                </div>
+                <div class="project-tile" data-category="python" data-description="Rozbudowany bot do platformy Discord napisany w bibliotece discord.py. Zawiera system komend moderacyjnych, minigry oraz odtwarzacz muzyki z YouTube.">
+                    <h3>Bot Discord</h3>
+                    <p>Python & API</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 data-i18n="title-contact">Skontaktuj się ze mną</h2>
+            
+            <div class="copy-section">
+                <span>kontakt@aleksanderzientara.pl</span>
+                <button id="copy-email-btn" class="copy-btn" data-text="kontakt@aleksanderzientara.pl" data-i18n="copy">Kopiuj</button>
+            </div>
+
+            <form id="contact-form">
+                <input type="text" id="name" data-i18n-ph="ph-name" placeholder="Twoje imię" required>
+                <input type="email" id="email" data-i18n-ph="ph-email" placeholder="Twój adres e-mail" required>
+                <textarea id="message" rows="5" data-i18n-ph="ph-msg" placeholder="Twoja wiadomość..." required></textarea>
+                <button type="submit" data-i18n="btn-send">Wyślij wiadomość</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Aleksander Zientara</p>
+    </footer>
+
+    <aside id="action-center" class="action-center">
+        <div class="action-center-header">
+            <h2 data-i18n="ac-title">Centrum Akcji</h2>
+            <button id="close-action-center" class="close-btn">X</button>
+        </div>
+        <div class="clock" id="system-clock">00:00:00</div>
+        
+        <div class="widget-grid">
+            <div class="status-widget">
+                <h3 data-i18n="ac-sys">System</h3>
+                <p id="sys-info">Ładowanie...</p>
+            </div>
+            <div class="status-widget">
+                <h3 data-i18n="ac-bat">Bateria</h3>
+                <p id="battery-info">Sprawdzanie...</p>
+            </div>
+            <div class="status-widget" style="grid-column: span 2;">
+                <h3 data-i18n="ac-stat">Statystyki</h3>
+                <p><span data-i18n="ac-time">Czas</span>: <span id="time-spent">00:00</span> | <span data-i18n="ac-clicks">Kliknięcia</span>: <span id="click-count">0</span></p>
+            </div>
+        </div>
+
+        <div class="action-controls">
+            <select id="language-select" class="action-btn">
+                <option value="pl">Język: Polski</option>
+                <option value="en-us">Language: English (US)</option>
+                <option value="en-gb">Language: English (UK)</option>
+                <option value="en-au">Language: English (AU)</option>
+                <option value="pirate">Lingo: Piracki 🏴‍☠️</option>
+            </select>
+            <button id="hacker-btn" class="action-btn" data-i18n="hacker-btn">Tryb Hakera</button>
+            <button id="leet-btn" class="action-btn" data-i18n="leet-btn">Sekretny język</button>
+            <button id="random-color-btn" class="action-btn" data-i18n="color-btn">Losuj kolory</button>
+        </div>
+    </aside>
+
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">X</button>
+            <h2 id="modal-title">Tytuł projektu</h2>
+            <p id="modal-desc">Tutaj pojawi się szczegółowy opis projektu.</p>
+        </div>
+    </div>
+
+    <div id="boys-modal" class="modal">
+        <div class="modal-content">
+            <button id="close-boys-modal" class="close-btn">X</button>
+            
+            <div id="boys-menu">
+                <h2 data-i18n="choose-boy-title">Wybierz, kogo chcesz zobaczyć</h2>
+                <div class="boys-menu-grid" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                    <button class="theme-btn boy-select-btn" data-target="boy-ignacy" data-i18n="ignacy-name">Ignacy</button>
+                    <button class="theme-btn boy-select-btn" data-target="boy-igor" data-i18n="igor-name">Igor</button>
+                    <button class="theme-btn boy-select-btn" data-target="boy-boniek" data-i18n="boniek-name">Boniek 🕊️</button>
+                    <button class="theme-btn boy-select-btn" data-target="boy-group" data-i18n="group-name">Zdjęcia grupowe</button>
+                </div>
+            </div>
+
+            <div id="boys-content" style="display: none;">
+                <button id="back-to-boys-menu" class="theme-btn" style="margin-bottom: 20px;" data-i18n="back-btn">Wróć do wyboru</button>
+                
+                <div id="boy-ignacy" class="boy-section" style="display: none;">
+                    <h2 data-i18n="ignacy-title">Ignacy (aka. Naqsu)</h2>
+                    <p data-i18n="ignacy-bio">Mój niesamowity chłopak, z którym dzielę życie i pasję do kolarstwa. Razem zdobywamy kolejne kilometry, wspieramy się na każdym kroku i tworzymy najlepszy zespół na świecie!</p>
+                    <div class="carousel-container">
+                        <button class="carousel-btn prev">❮</button>
+                        <div class="carousel-track">
+                            <img src="ignacy1.jpg" alt="Ignacy zdjęcie 1" class="enlargeable" draggable="false">
+                            <img src="ignacy2.png" alt="Ignacy zdjęcie 2" class="enlargeable" draggable="false">
+                            <img src="ignacy3.jpg" alt="Ignacy zdjęcie 3" class="enlargeable" draggable="false">
+                            <img src="ignacy4.png" alt="Ignacy zdjęcie 4" class="enlargeable" draggable="false">
+                            <img src="ignacy5.png" alt="Ignacy zdjęcie 5" class="enlargeable" draggable="false">
+                        </div>
+                        <button class="carousel-btn next">❯</button>
+                    </div>
+                </div>
+
+                <div id="boy-igor" class="boy-section" style="display: none;">
+                    <h2 data-i18n="igor-title">Igor (aka. Niggor)</h2>
+                    <p data-i18n="igor-bio">Mój wspaniały chłopak Igor. Zawsze mogę na niego liczyć, a wspólne spędzanie czasu to czysta przyjemność. Tworzymy razem piękne wspomnienia!</p>
+                    <div class="carousel-container">
+                        <button class="carousel-btn prev">❮</button>
+                        <div class="carousel-track">
+                            <img src="igor1.jpg" alt="Igor zdjęcie 1" class="enlargeable" draggable="false">
+                            <img src="igor2.jpg" alt="Igor zdjęcie 2" class="enlargeable" draggable="false">
+                            <img src="igor3.png" alt="Igor zdjęcie 3" class="enlargeable" draggable="false">
+                            <img src="igor4.png" alt="Igor zdjęcie 4" class="enlargeable" draggable="false">
+                        </div>
+                        <button class="carousel-btn next">❯</button>
+                    </div>
+                </div>
+
+                <div id="boy-boniek" class="boy-section" style="display: none;">
+                    <h2 data-i18n="boniek-title">Honorable Mention: Boniek 🕊️</h2>
+                    <p data-i18n="boniek-bio">Mój trzeci chłopak, który na zawsze pozostanie w moim sercu. Choć nie ma go już z nami, wspomnienia o nim są dla mnie niezwykle cenne. Spoczywaj w pokoju, Boniek. ❤️</p>
+                    <div class="carousel-container">
+                        <button class="carousel-btn prev">❮</button>
+                        <div class="carousel-track">
+                            <img src="boniek1.jpg" alt="Boniek zdjęcie 1 (RIP)" class="enlargeable" draggable="false">
+                            <img src="boniek2.jpg" alt="Boniek zdjęcie 2" class="enlargeable" draggable="false">
+                            <img src="boniek3.jpg" alt="Boniek zdjęcie 3" class="enlargeable" draggable="false">
+                            <img src="boniek4.jpg" alt="Boniek zdjęcie 4" class="enlargeable" draggable="false">
+                            <img src="boniek5.jpg" alt="Boniek zdjęcie 5" class="enlargeable" draggable="false">
+                            <img src="boniek6.jpg" alt="Boniek zdjęcie 6" class="enlargeable" draggable="false">
+                            <img src="boniek7.jpg" alt="Boniek zdjęcie 7" class="enlargeable" draggable="false">
+                            <img src="boniek8.png" alt="Boniek zdjęcie 8" class="enlargeable" draggable="false">
+                        </div>
+                        <button class="carousel-btn next">❯</button>
+                    </div>
+                </div>
+
+                <div id="boy-group" class="boy-section" style="display: none;">
+                    <h2 data-i18n="group-title">Zdjęcia grupowe</h2>
+                    <p data-i18n="group-bio">Nasze wspólne chwile uchwycone na zdjęciach. Najlepsze wspomnienia z ekipą!</p>
+                    <div class="carousel-container">
+                        <button class="carousel-btn prev">❮</button>
+                        <div class="carousel-track">
+                            <img src="zdg1.jpg" alt="Zdjęcie grupowe 1" class="enlargeable" draggable="false">
+                            <img src="zdg2.jpg" alt="Zdjęcie grupowe 2" class="enlargeable" draggable="false">
+                            <img src="zdg3.jpg" alt="Zdjęcie grupowe 3" class="enlargeable" draggable="false">
+                        </div>
+                        <button class="carousel-btn next">❯</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="image-lightbox" class="modal">
+        <div class="modal-content lightbox-content">
+            <button id="close-lightbox" class="close-btn">&times;</button>
+            <img id="lightbox-img" src="" alt="">
+        </div>
+    </div>
+
+    <button id="back-to-top" class="back-to-top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
