@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         "pl": {
-            "load": "Trwa ładowanie systemu Aleksander OS...",
             "theme-dark": "Tryb ciemny",
             "theme-light": "Tryb jasny",
             "panel": "Panel akcji",
@@ -53,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "switch-btn": "Zmień zdjęcie"
         },
         "en-us": {
-            "load": "Booting Aleksander OS...",
             "theme-dark": "Dark Mode",
             "theme-light": "Light Mode",
             "panel": "Action Center",
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "switch-btn": "Switch Photo"
         },
         "en-gb": {
-            "load": "Booting Aleksander OS...",
             "theme-dark": "Dark Mode",
             "theme-light": "Light Mode",
             "panel": "Action Centre",
@@ -157,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "switch-btn": "Switch Photo"
         },
         "en-au": {
-            "load": "Cranking up Aleksander OS, mate...",
             "theme-dark": "Dark Mode",
             "theme-light": "Light Mode",
             "panel": "The Servo",
@@ -209,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "switch-btn": "Swap Pic"
         },
         "pirate": {
-            "load": "Hoisting the sails for Aleksander OS...",
             "theme-dark": "Dark Waters",
             "theme-light": "Sunny Skies",
             "panel": "Captain's Cabin",
@@ -296,6 +291,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (langSelect) {
         langSelect.addEventListener('change', (e) => {
             applyTranslations(e.target.value);
+        });
+    }
+
+    const clockElement = document.getElementById('system-clock');
+    if (clockElement) {
+        setInterval(() => {
+            const now = new Date();
+            clockElement.textContent = now.toLocaleTimeString('pl-PL');
+        }, 1000);
+    }
+
+    const randomColorBtn = document.getElementById('random-color-btn');
+    if (randomColorBtn) {
+        randomColorBtn.addEventListener('click', () => {
+            const colors = ['#0078d4', '#107c41', '#5c2d91', '#d83b01', '#008272', '#b81b1b', '#ffb900', '#e3008c', '#00cc6a', '#00bcf2'];
+            document.querySelectorAll('.tile').forEach(tile => {
+                tile.style.setProperty('background-color', colors[Math.floor(Math.random() * colors.length)], 'important');
+            });
         });
     }
 
@@ -421,38 +434,61 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const boysModal = document.getElementById('boys-modal');
-    const closeBoysModalBtn = document.getElementById('close-boys-modal');
+    function initDraggable(win) {
+        const header = win.querySelector('.window-header');
+        let offsetX, offsetY;
+        
+        if (header) {
+            header.addEventListener('mousedown', (e) => {
+                offsetX = e.clientX - win.offsetLeft;
+                offsetY = e.clientY - win.offsetTop;
+                
+                function mouseMove(e) { 
+                    win.style.left = (e.clientX - offsetX) + 'px'; 
+                    win.style.top = (e.clientY - offsetY) + 'px'; 
+                }
+                function mouseUp() { 
+                    document.removeEventListener('mousemove', mouseMove); 
+                    document.removeEventListener('mouseup', mouseUp); 
+                }
+                
+                document.addEventListener('mousemove', mouseMove);
+                document.addEventListener('mouseup', mouseUp);
+            });
+        }
+    }
+
+    const winBoys = document.getElementById('window-boys');
+    if (winBoys) initDraggable(winBoys);
+
+    if (meetBoysBtn && winBoys) {
+        meetBoysBtn.addEventListener('click', () => {
+            winBoys.style.display = 'block';
+        });
+    }
+
+    if (winBoys) {
+        winBoys.querySelector('.close').addEventListener('click', () => {
+            winBoys.style.display = 'none';
+        });
+
+        winBoys.querySelector('.minimize').addEventListener('click', () => {
+            winBoys.style.display = 'none';
+        });
+    }
+
     const boysMenu = document.getElementById('boys-menu');
     const boysContent = document.getElementById('boys-content');
     const backToBoysMenuBtn = document.getElementById('back-to-boys-menu');
     const boySelectBtns = document.querySelectorAll('.boy-select-btn');
     const boySections = document.querySelectorAll('.boy-section');
 
-    if (meetBoysBtn && boysModal && closeBoysModalBtn) {
-        meetBoysBtn.addEventListener('click', () => {
-            boysModal.classList.add('active');
-            boysMenu.style.display = 'block';
-            boysContent.style.display = 'none';
-        });
-
-        closeBoysModalBtn.addEventListener('click', () => {
-            boysModal.classList.remove('active');
-        });
-
-        boysModal.addEventListener('click', (e) => {
-            if (e.target === boysModal) {
-                boysModal.classList.remove('active');
-            }
-        });
-    }
-
     if (boySelectBtns && backToBoysMenuBtn) {
         boySelectBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target');
-                boysMenu.style.display = 'none';
-                boysContent.style.display = 'block';
+                if (boysMenu) boysMenu.style.display = 'none';
+                if (boysContent) boysContent.style.display = 'block';
                 
                 boySections.forEach(section => {
                     if (section.id === targetId) {
@@ -465,8 +501,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         backToBoysMenuBtn.addEventListener('click', () => {
-            boysContent.style.display = 'none';
-            boysMenu.style.display = 'block';
+            if (boysContent) boysContent.style.display = 'none';
+            if (boysMenu) boysMenu.style.display = 'block';
         });
     }
 
@@ -477,7 +513,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const switchBtn = document.getElementById('switch-photo-btn');
 
     function updateProfileImageTransform() {
-        profileImg.style.transform = `rotate(${currentProfileRotation}deg) scaleX(${isProfileMirrored ? -1 : 1})`;
+        if (profileImg) {
+            profileImg.style.transform = `rotate(${currentProfileRotation}deg) scaleX(${isProfileMirrored ? -1 : 1})`;
+        }
     }
 
     if (rotateBtn && profileImg) {
@@ -544,13 +582,6 @@ document.addEventListener('DOMContentLoaded', () => {
             timeSpentEl.textContent = `${m}:${s}`;
         }
     }, 1000);
-
-    const bootScreen = document.getElementById('boot-screen');
-    if (bootScreen) {
-        setTimeout(() => {
-            bootScreen.classList.add('hidden');
-        }, 2500);
-    }
 
     let typedMagicWord = '';
     window.addEventListener('keydown', (e) => {
@@ -675,73 +706,6 @@ document.addEventListener('DOMContentLoaded', () => {
         batteryInfoEl.textContent = "Brak dostępu";
     }
 
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectTiles = document.querySelectorAll('.project-tile');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const filterValue = btn.getAttribute('data-filter');
-
-            projectTiles.forEach(tile => {
-                if (filterValue === 'all' || tile.getAttribute('data-category') === filterValue) {
-                    tile.style.display = 'block';
-                } else {
-                    tile.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    const projectModal = document.getElementById('project-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
-    const closeModalBtn = document.getElementById('close-modal');
-
-    if (projectModal && projectTiles && closeModalBtn) {
-        projectTiles.forEach(tile => {
-            tile.addEventListener('click', () => {
-                const title = tile.querySelector('h3').textContent;
-                const desc = tile.getAttribute('data-description');
-                
-                modalTitle.textContent = title;
-                modalDesc.textContent = desc;
-                
-                projectModal.classList.add('active');
-            });
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            projectModal.classList.remove('active');
-        });
-
-        projectModal.addEventListener('click', (e) => {
-            if (e.target === projectModal) {
-                projectModal.classList.remove('active');
-            }
-        });
-    }
-
-    const copyBtn = document.getElementById('copy-email-btn');
-    if (copyBtn) {
-        copyBtn.addEventListener('click', () => {
-            const textToCopy = copyBtn.getAttribute('data-text');
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                copyBtn.textContent = translations[currentLanguage]["copied"];
-                copyBtn.style.backgroundColor = 'var(--metro-green)';
-                copyBtn.style.color = '#ffffff';
-                
-                setTimeout(() => {
-                    copyBtn.textContent = translations[currentLanguage]["copy"];
-                    copyBtn.style.backgroundColor = 'var(--btn-bg)';
-                    copyBtn.style.color = 'var(--btn-text)';
-                }, 2000);
-            });
-        });
-    }
-
     const actionCenterBtn = document.getElementById('action-center-btn');
     const closeActionCenterBtn = document.getElementById('close-action-center');
     const actionCenter = document.getElementById('action-center');
@@ -752,7 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         closeActionCenterBtn.addEventListener('click', () => {
-            actionCenter.remove('open');
+            actionCenter.classList.remove('open');
         });
     }
 });
