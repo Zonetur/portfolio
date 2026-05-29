@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aleksander OS</title>
+    <title>Aleksander OS v2.1 Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="navbar">
+
+    <div id="custom-context-menu" class="context-menu">
+        <ul>
+            <li id="ctx-refresh" data-i18n="ctx-refresh">Odśwież OS</li>
+            <li id="ctx-terminal" data-i18n="ctx-terminal">Uruchom Terminal</li>
+            <li id="ctx-update" data-i18n="ctx-update">Sprawdź aktualizacje</li>
+            <li id="ctx-personal" data-i18n="ctx-personal">Opcje personalizacji</li>
+        </ul>
+    </div>
+
+    <header class="navbar glass">
         <div class="nav-container">
             <h1>Aleksander Zientara</h1>
             <div class="nav-controls">
@@ -28,14 +38,14 @@
         <div class="profile-section">
             <div class="profile-container">
                 <div class="profile-layout">
-                    <div class="outer-frame-large">
+                    <div class="outer-frame-large glass-panel wobble-target">
                         <div class="outer-frame-middle">
                             <div class="image-frame" id="my-image-frame">
                                 <img src="mzdj.jpg" alt="Moje zdjęcie" id="profile-img" draggable="false">
                             </div>
                         </div>
                     </div>
-                    <div class="profile-text">
+                    <div class="profile-text glass-panel wobble-target">
                         <h2 data-i18n="about-title">O mnie</h2>
                         <p data-i18n="about-text">Cześć! Jestem Aleksander, uczeń technikum informatycznego. Jestem dumnym gejem i aktywnie działam na rzecz widoczności społeczności LGBTQ+ w świecie IT. Poza kodowaniem i tworzeniem inkluzywnych projektów, moją wielką pasją jest kolarstwo. Uwielbiam pokonywać kilometry na moim rowerze aero, najchętniej w towarzystwie mojego chłopaka, Ignacego.</p>
                         
@@ -60,12 +70,12 @@
 
         <section id="skills" class="section">
             <h2 data-i18n="title-skills">Moje Umiejętności</h2>
-            <div class="grid">
-                <div class="tile blue">HTML5</div>
-                <div class="tile green">CSS / SCSS</div>
-                <div class="tile purple">JavaScript</div>
-                <div class="tile orange">Python</div>
-                <div class="tile teal">Git</div>
+            <div class="grid" id="skills-grid">
+                <div class="tile blue wobble-target" draggable="true">HTML5</div>
+                <div class="tile green wobble-target" draggable="true">CSS / SCSS</div>
+                <div class="tile purple wobble-target" draggable="true">JavaScript</div>
+                <div class="tile orange wobble-target" draggable="true">Python</div>
+                <div class="tile teal wobble-target" draggable="true">Git</div>
             </div>
         </section>
 
@@ -80,27 +90,27 @@
             </div>
 
             <div class="project-grid">
-                <div class="project-tile" data-category="js" data-description="Prosty, w pełni działający kalkulator napisany w czystym JavaScript. Obsługuje podstawowe operacje matematyczne, historię wyników oraz obsługę za pomocą klawiatury.">
+                <div class="project-tile glass-panel wobble-target" data-category="js" data-description="Prosty, w pełni działający kalkulator napisany w czystym JavaScript. Obsługuje podstawowe operacje matematyczne, historię wyników oraz obsługę za pomocą klawiatury.">
                     <h3>Kalkulator</h3>
                     <p>Aplikacja w JS</p>
                 </div>
-                <div class="project-tile" data-category="js" data-description="Klasyczna gra Snake zaimplementowana przy użyciu HTML5 Canvas. Oferuje system punktacji, rosnący poziom trudności i efekty dźwiękowe.">
+                <div id="snake-tile" class="project-tile glass-panel wobble-target" data-category="js" data-description="Klasyczna gra Snake zaimplementowana przy użyciu HTML5 Canvas. Oferuje system punktacji, rosnący poziom trudności i efekty dźwiękowe.">
                     <h3>Gra Snake</h3>
                     <p>Canvas i JS</p>
                 </div>
-                <div class="project-tile" data-category="web" data-description="W pełni responsywna wizytówka szkoły. Wykorzystuje zaawansowany grid, flexbox oraz animacje CSS. Kod strukturyzowany z użyciem SCSS.">
+                <div class="project-tile glass-panel wobble-target" data-category="web" data-description="W pełni responsywna wizytówka szkoły. Wykorzystuje zaawansowany grid, flexbox oraz animacje CSS. Kod strukturyzowany z użyciem SCSS.">
                     <h3>Strona Szkoły</h3>
                     <p>HTML & SCSS</p>
                 </div>
-                <div class="project-tile" data-category="js" data-description="Aplikacja łącząca się z zewnętrznym API pogodowym (OpenWeatherMap). Pozwala na wyszukiwanie miast i wyświetla dynamiczne tło zależne od aktualnej aury.">
+                <div class="project-tile glass-panel wobble-target" data-category="js" data-description="Aplikacja łącząca się z zewnętrznym API pogodowym (OpenWeatherMap). Pozwala na wyszukiwanie miast i wyświetla dynamiczne tło zależne od aktualnej aury.">
                     <h3>Aplikacja Pogodowa</h3>
                     <p>Fetch API & JS</p>
                 </div>
-                <div class="project-tile" data-category="web" data-description="Makieta sklepu internetowego z systemem dodawania do koszyka opartym o localStorage. Interfejs stylizowany w duchu minimalizmu z własnym systemem powiadomień.">
+                <div class="project-tile glass-panel wobble-target" data-category="web" data-description="Makieta sklepu internetowego z systemem dodawania do koszyka opartym o localStorage. Interfejs stylizowany w duchu minimalizmu z własnym systemem powiadomień.">
                     <h3>Sklep E-commerce</h3>
                     <p>HTML, CSS & JS</p>
                 </div>
-                <div class="project-tile" data-category="python" data-description="Rozbudowany bot do platformy Discord napisany w bibliotece discord.py. Zawiera system komend moderacyjnych, minigry oraz odtwarzacz muzyki z YouTube.">
+                <div class="project-tile glass-panel wobble-target" data-category="python" data-description="Rozbudowany bot do platformy Discord napisany w bibliotece discord.py. Zawiera system komend moderacyjnych, minigry oraz odtwarzacz muzyki z YouTube.">
                     <h3>Bot Discord</h3>
                     <p>Python & API</p>
                 </div>
@@ -110,71 +120,153 @@
         <section id="contact" class="section">
             <h2 data-i18n="title-contact">Skontaktuj się ze mną</h2>
             
-            <div class="copy-section">
+            <div class="copy-section glass-panel wobble-target">
                 <span>kontakt@aleksanderzientara.pl</span>
                 <button id="copy-email-btn" class="copy-btn" data-text="kontakt@aleksanderzientara.pl" data-i18n="copy">Kopiuj</button>
             </div>
 
-            <form id="contact-form">
+            <form id="contact-form" class="glass-panel wobble-target" style="padding: 2rem;">
                 <input type="text" id="name" data-i18n-ph="ph-name" placeholder="Twoje imię" required>
                 <input type="email" id="email" data-i18n-ph="ph-email" placeholder="Twój adres e-mail" required>
                 <textarea id="message" rows="5" data-i18n-ph="ph-msg" placeholder="Twoja wiadomość..." required></textarea>
-                <button type="submit" data-i18n="btn-send">Wyślij wiadomość</button>
+                <button type="submit" data-i18n="btn-send" class="theme-btn">Wyślij wiadomość</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Aleksander Zientara</p>
+        <p>&copy; 2026 Aleksander Zientara OS - <span id="os-version">v2.1 Pro</span></p>
     </footer>
 
-    <aside id="action-center" class="action-center">
+    <aside id="action-center" class="action-center glass">
         <div class="action-center-header">
             <h2 data-i18n="ac-title">Centrum Akcji</h2>
             <button id="close-action-center" class="close-btn">X</button>
         </div>
-        <div class="clock" id="system-clock">00:00:00</div>
         
-        <div class="widget-grid">
-            <div class="status-widget">
-                <h3 data-i18n="ac-sys">System</h3>
-                <p id="sys-info">Sprawdzanie...</p>
+        <div class="action-center-content">
+            <div class="clock" id="system-clock">00:00:00</div>
+            
+            <div class="widget-grid">
+                <div class="status-widget glass-panel">
+                    <h3 data-i18n="ac-sys">System</h3>
+                    <p id="sys-info">Sprawdzanie...</p>
+                </div>
+                <div class="status-widget glass-panel">
+                    <h3 data-i18n="ac-bat">Bateria</h3>
+                    <p id="battery-info">Sprawdzanie...</p>
+                </div>
+                <div class="status-widget glass-panel" style="grid-column: span 2;">
+                    <h3 data-i18n="ac-stat">Statystyki</h3>
+                    <p><span data-i18n="ac-time">Czas</span>: <span id="time-spent">00:00</span> | <span data-i18n="ac-clicks">Kliknięcia</span>: <span id="click-count">0</span></p>
+                </div>
             </div>
-            <div class="status-widget">
-                <h3 data-i18n="ac-bat">Bateria</h3>
-                <p id="battery-info">Sprawdzanie...</p>
-            </div>
-            <div class="status-widget" style="grid-column: span 2;">
-                <h3 data-i18n="ac-stat">Statystyki</h3>
-                <p><span data-i18n="ac-time">Czas</span>: <span id="time-spent">00:00</span> | <span data-i18n="ac-clicks">Kliknięcia</span>: <span id="click-count">0</span></p>
-            </div>
-        </div>
 
-        <div class="action-controls">
-            <select id="language-select" class="action-btn">
-                <option value="pl">Język: Polski</option>
-                <option value="en-us">Language: English (US)</option>
-                <option value="en-gb">Language: English (UK)</option>
-                <option value="en-au">Language: English (AU)</option>
-                <option value="pirate">Lingo: Piracki 🏴‍☠️</option>
+            <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="sound-settings">Dźwięki Systemu</h3>
+            <button id="toggle-sound-btn" class="action-btn" style="margin-bottom: 20px;">🔊 Dźwięki Włączone</button>
+
+            <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="wobble-settings">Opcje Wobble'a</h3>
+            <select id="wobble-select" class="action-btn" style="margin-bottom: 20px;">
+                <option value="jelly" data-i18n="opt-jelly">Klasyczny (Jelly)</option>
+                <option value="glitch" data-i18n="opt-glitch">Glitch / Trzęsienie</option>
+                <option value="bounce" data-i18n="opt-bounce">Sprężyna (Bounce)</option>
+                <option value="spin" data-i18n="opt-spin">Huragan (Spin)</option>
+                <option value="tornado" data-i18n="opt-tornado">Tornado 3D</option>
+                <option value="shake" data-i18n="opt-shake">Wibracje (Shake)</option>
+                <option value="rubberband" data-i18n="opt-rubberband">Guma (Rubber Band)</option>
+                <option value="swing" data-i18n="opt-swing">Huśtawka (Swing)</option>
+                <option value="tada" data-i18n="opt-tada">Tada!</option>
+                <option value="heartbeat" data-i18n="opt-heartbeat">Bicie Serca</option>
+                <option value="pulse" data-i18n="opt-pulse">Pulsowanie (Pulse)</option>
+                <option value="flip" data-i18n="opt-flip">Karta (Flip)</option>
+                <option value="skew" data-i18n="opt-skew">Wyginanie (Skew)</option>
+                <option value="zoom" data-i18n="opt-zoom">Skok (Zoom)</option>
+                <option value="jello" data-i18n="opt-jello">Miękka Galaretka</option>
             </select>
-            <button id="hacker-btn" class="action-btn" data-i18n="hacker-btn">Tryb Hakera</button>
-            <button id="leet-btn" class="action-btn" data-i18n="leet-btn">Sekretny język</button>
-            <button id="random-color-btn" class="action-btn" data-i18n="color-btn">Losuj kolory</button>
+
+            <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="mode-settings">Tryby Systemu</h3>
+            <div class="action-controls" style="margin-bottom: 20px;">
+                <button id="hacker-btn" class="action-btn" data-i18n="ctx-hacker">Tryb Hakera</button>
+                <button id="cyberpunk-btn" class="action-btn" data-i18n="ctx-cyberpunk">Tryb Cyberpunk</button>
+                <button id="retro-btn" class="action-btn" data-i18n="ctx-retro">Tryb Retro</button>
+            </div>
+
+            <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="color-settings">Personalizacja</h3>
+            <div class="action-controls" style="margin-bottom: 20px;">
+                <input type="color" id="hidden-color-picker" style="display:none;" value="#0078d4">
+                <button id="custom-color-btn" class="action-btn">Wybierz własny kolor</button>
+                <button id="random-color-btn" class="action-btn" data-i18n="color-btn">Losuj kolory kafelków</button>
+            </div>
+
+            <div class="action-controls">
+                <select id="language-select" class="action-btn">
+                    <option value="pl">Język: Polski</option>
+                    <option value="en-us">Language: English (US)</option>
+                    <option value="en-gb">Language: English (UK)</option>
+                    <option value="en-au">Language: English (AU)</option>
+                    <option value="pirate">Lingo: Piracki 🏴‍☠️</option>
+                </select>
+                <button id="leet-btn" class="action-btn" data-i18n="leet-btn">Sekretny język</button>
+            </div>
         </div>
     </aside>
 
     <div id="project-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <button id="close-modal" class="close-btn">X</button>
             <h2 id="modal-title">Tytuł projektu</h2>
             <p id="modal-desc">Tutaj pojawi się szczegółowy opis projektu.</p>
         </div>
     </div>
 
-    <div id="window-boys" class="window" style="display:none; top: 100px; left: 100px; width: 500px; max-width: 90vw;">
+    <div id="update-modal" class="modal">
+        <div class="modal-content glass-panel" style="text-align: center;">
+            <h2 data-i18n="updating-title">Aktualizowanie Aleksander OS...</h2>
+            <p data-i18n="updating-text">Proszę nie wyłączać przeglądarki.</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="update-progress"></div>
+            </div>
+            <p id="update-status">0%</p>
+        </div>
+    </div>
+
+    <div id="window-terminal" class="window glass" style="display:none; top: 150px; left: 150px; width: 600px;">
         <div class="window-header">
-            <span>Chłopaki</span>
+            <span data-i18n="term-title">Aleksander OS Terminal</span>
+            <div class="window-controls">
+                <button class="win-btn minimize">_</button>
+                <button class="win-btn close">X</button>
+            </div>
+        </div>
+        <div class="window-content terminal-content">
+            <div id="term-output">
+                <p>Welcome to Aleksander OS v2.1 Pro.</p>
+                <p>Type 'help' for a list of available commands.</p>
+            </div>
+            <div class="term-input-line">
+                <span class="prompt">admin@aleksander-os:~$</span>
+                <input type="text" id="term-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <div id="window-snake" class="window glass" style="display:none; top: 120px; left: 50%; transform: translateX(-50%); width: 340px;">
+        <div class="window-header">
+            <span>Snake OS</span>
+            <div class="window-controls">
+                <button class="win-btn minimize">_</button>
+                <button class="win-btn close">X</button>
+            </div>
+        </div>
+        <div class="window-content" style="text-align: center; background: #222;">
+            <canvas id="snake-canvas" width="300" height="300" style="background: #000; border: 2px solid var(--metro-blue); border-radius: 4px; display: block; margin: 0 auto;"></canvas>
+            <button id="start-snake-btn" class="theme-btn" style="margin-top: 15px; width: 100%; border-color: var(--metro-green); color: white; background: var(--metro-green);">Graj</button>
+        </div>
+    </div>
+
+    <div id="window-boys" class="window glass" style="display:none; top: 100px; left: 100px; width: 550px; max-width: 90vw;">
+        <div class="window-header">
+            <span data-i18n="boys-win-title">Chłopaki OS</span>
             <div class="window-controls">
                 <button class="win-btn minimize">_</button>
                 <button class="win-btn close">X</button>
@@ -197,7 +289,7 @@
                 <div id="boy-ignacy" class="boy-section" style="display: none;">
                     <h2 data-i18n="ignacy-title">Ignacy (aka. Naqsu)</h2>
                     <p data-i18n="ignacy-bio">Mój niesamowity chłopak, z którym dzielę życie i pasję do kolarstwa. Razem zdobywamy kolejne kilometry, wspieramy się na każdym kroku i tworzymy najlepszy zespół na świecie!</p>
-                    <div class="carousel-container">
+                    <div class="carousel-container glass-panel">
                         <button class="carousel-btn prev">❮</button>
                         <div class="carousel-track">
                             <img src="ignacy1.jpg" alt="Ignacy zdjęcie 1" class="enlargeable" draggable="false">
@@ -213,7 +305,7 @@
                 <div id="boy-igor" class="boy-section" style="display: none;">
                     <h2 data-i18n="igor-title">Igor (aka. Niggor)</h2>
                     <p data-i18n="igor-bio">Mój wspaniały chłopak Igor. Zawsze mogę na niego liczyć, a wspólne spędzanie czasu to czysta przyjemność. Tworzymy razem piękne wspomnienia!</p>
-                    <div class="carousel-container">
+                    <div class="carousel-container glass-panel">
                         <button class="carousel-btn prev">❮</button>
                         <div class="carousel-track">
                             <img src="igor1.jpg" alt="Igor zdjęcie 1" class="enlargeable" draggable="false">
@@ -228,7 +320,7 @@
                 <div id="boy-boniek" class="boy-section" style="display: none;">
                     <h2 data-i18n="boniek-title">Honorable Mention: Boniek 🕊️</h2>
                     <p data-i18n="boniek-bio">Mój trzeci chłopak, który na zawsze pozostanie w moim sercu. Lubiliśmy pić z tego samego shake'a i razem wpierniczać burgery z makdonalda. Choć nie ma go już z nami, wspomnienia o nim są dla mnie niezwykle cenne. Spoczywaj w pokoju, Boniek. ❤️</p>
-                    <div class="carousel-container">
+                    <div class="carousel-container glass-panel">
                         <button class="carousel-btn prev">❮</button>
                         <div class="carousel-track">
                             <img src="boniek1.jpg" alt="Boniek zdjęcie 1 (RIP)" class="enlargeable" draggable="false">
@@ -247,7 +339,7 @@
                 <div id="boy-group" class="boy-section" style="display: none;">
                     <h2 data-i18n="group-title">Zdjęcia grupowe</h2>
                     <p data-i18n="group-bio">Nasze wspólne chwile uchwycone na zdjęciach. Najlepsze wspomnienia z ekipą!</p>
-                    <div class="carousel-container">
+                    <div class="carousel-container glass-panel">
                         <button class="carousel-btn prev">❮</button>
                         <div class="carousel-track">
                             <img src="zdg1.jpg" alt="Zdjęcie grupowe 1" class="enlargeable" draggable="false">
@@ -262,13 +354,15 @@
     </div>
 
     <div id="image-lightbox" class="modal">
-        <div class="modal-content lightbox-content">
+        <div class="modal-content lightbox-content glass-panel">
             <button id="close-lightbox" class="close-btn">&times;</button>
             <img id="lightbox-img" src="" alt="">
         </div>
     </div>
 
-    <div id="taskbar"></div>
+    <div class="notification-container" id="notification-container"></div>
+    <canvas id="matrix-canvas" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:20000; pointer-events:none;"></canvas>
+
     <button id="back-to-top" class="back-to-top">↑</button>
 
     <script src="script.js"></script>
