@@ -37,6 +37,21 @@ body.dark-mode {
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
+@keyframes hacker-flicker {
+    0% { opacity: 0.98; }
+    50% { opacity: 1; }
+    100% { opacity: 0.95; }
+}
+
+@keyframes hacker-glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
 body.hacker-mode {
     --bg-color: #000000;
     --text-color: #00ff00;
@@ -53,6 +68,25 @@ body.hacker-mode {
     --metro-orange: #007700;
     --metro-teal: #008800;
     --metro-red: #009900;
+    
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.05) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    animation: hacker-flicker 0.15s infinite;
+}
+
+body.hacker-mode *, body.hacker-mode { font-family: "Courier New", Courier, monospace !important; }
+
+body.hacker-mode .tile, body.hacker-mode .glass-panel, body.hacker-mode .window, body.hacker-mode .action-btn {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2) !important;
+    border: 1px solid #00ff00 !important;
+}
+
+body.hacker-mode .tile:hover, body.hacker-mode .action-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.4) !important;
+    text-shadow: 0 0 5px #0f0;
+    animation: hacker-glitch 0.2s infinite;
 }
 
 body.cyberpunk-mode {
@@ -96,6 +130,92 @@ body.retro-mode * { font-family: 'MS Sans Serif', 'Tahoma', sans-serif !importan
 body.retro-mode .window, body.retro-mode .theme-btn, body.retro-mode .action-btn, body.retro-mode .project-tile, body.retro-mode .tile, body.retro-mode .toast, body.retro-mode .progress-bar-container { border: 2px solid; border-color: #ffffff #808080 #808080 #ffffff !important; box-shadow: none !important; background: #c0c0c0 !important; color: #000 !important; }
 body.retro-mode .window-header { background: #000080 !important; color: #ffffff !important; }
 body.retro-mode .progress-bar-fill { background: #000080 !important; }
+
+body.baldi-mode {
+    --bg-color: #008000;
+    --text-color: #ff0000;
+    --border-color: #ffff00;
+    --input-bg: #ffffff;
+    --project-bg: #ffff00;
+    --btn-bg: #0000ff;
+    --btn-text: #ffff00;
+    --glass-bg: #ffff00;
+    --glass-border: #ff0000;
+    --metro-blue: #0000ff;
+    --metro-green: #00ff00;
+    --metro-purple: #ff00ff;
+    --metro-orange: #ff8800;
+    --metro-teal: #00ffff;
+    --metro-red: #ff0000;
+}
+body.baldi-mode * { font-family: "Comic Sans MS", "Chalkboard SE", sans-serif !important; border-radius: 0 !important; }
+body.baldi-mode .window, body.baldi-mode .theme-btn, body.baldi-mode .action-btn, body.baldi-mode .project-tile, body.baldi-mode .tile, body.baldi-mode .toast, body.baldi-mode .progress-bar-container, body.baldi-mode .glass, body.baldi-mode .glass-panel { 
+    border: 4px solid #0000ff !important; 
+    box-shadow: none !important; 
+    background: #ffff00 !important; 
+    color: #ff0000 !important; 
+}
+body.baldi-mode .theme-btn, body.baldi-mode .action-btn { background: #008000 !important; color: #ffff00 !important; }
+body.baldi-mode .theme-btn:hover, body.baldi-mode .action-btn:hover { background: #0000ff !important; color: #ffff00 !important; border-color: #ff0000 !important; }
+body.baldi-mode .window-header { background: #0000ff !important; color: #ffff00 !important; }
+
+@keyframes minecraft-bg-scroll {
+    from { background-position: 0 0, 0 10px, 10px -10px, -10px 0px; }
+    to { background-position: 20px 20px, 20px 30px, 30px 10px, 10px 20px; }
+}
+
+@keyframes minecraft-float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+body.minecraft-mode {
+    --bg-color: #5d4037; /* Dirt brown */
+    --text-color: #ffffff;
+    --border-color: #3e2723;
+    --input-bg: rgba(0, 0, 0, 0.4);
+    --project-bg: rgba(56, 142, 60, 0.9); /* Grass green */
+    --btn-bg: #757575; /* Stone gray */
+    --btn-text: #ffffff;
+    --glass-bg: rgba(56, 142, 60, 0.9);
+    --glass-border: #2e7d32;
+    --metro-blue: #1976d2; /* Diamond blue */
+    --metro-green: #388e3c;
+    --metro-purple: #7b1fa2; /* Nether portal purple */
+    --metro-orange: #f57c00; /* Lava orange */
+    --metro-teal: #00838f;
+    --metro-red: #d32f2f; /* Redstone red */
+    background-image: linear-gradient(45deg, #4e342e 25%, transparent 25%), 
+                      linear-gradient(-45deg, #4e342e 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #4e342e 75%), 
+                      linear-gradient(-45deg, transparent 75%, #4e342e 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    animation: minecraft-bg-scroll 2s linear infinite;
+}
+body.minecraft-mode * { font-family: "Courier New", Courier, monospace !important; border-radius: 0 !important; }
+body.minecraft-mode .window, body.minecraft-mode .theme-btn, body.minecraft-mode .action-btn, body.minecraft-mode .project-tile, body.minecraft-mode .tile, body.minecraft-mode .toast, body.minecraft-mode .progress-bar-container, body.minecraft-mode .glass, body.minecraft-mode .glass-panel { 
+    border: 3px solid; 
+    border-color: #bdbdbd #424242 #424242 #bdbdbd !important;
+    box-shadow: 2px 2px 0px #000 !important; 
+    background: #757575 !important; 
+    color: #ffffff !important; 
+    text-shadow: 1px 1px 0px #333;
+}
+body.minecraft-mode .window:not([class*="wobble-"]), body.minecraft-mode .theme-btn:not([class*="wobble-"]), body.minecraft-mode .action-btn:not([class*="wobble-"]), body.minecraft-mode .project-tile:not([class*="wobble-"]), body.minecraft-mode .tile:not([class*="wobble-"]), body.minecraft-mode .toast:not([class*="wobble-"]), body.minecraft-mode .progress-bar-container:not([class*="wobble-"]), body.minecraft-mode .glass:not(.action-center):not([class*="wobble-"]), body.minecraft-mode .glass-panel:not([class*="wobble-"]) {
+    animation: minecraft-float 3s ease-in-out infinite;
+}
+body.minecraft-mode .theme-btn:hover, body.minecraft-mode .action-btn:hover {
+    animation: none;
+    transform: scale(1.05);
+}
+body.minecraft-mode .theme-btn:active, body.minecraft-mode .action-btn:active {
+    border-color: #424242 #bdbdbd #bdbdbd #424242 !important;
+    transform: translate(2px, 2px);
+    box-shadow: none !important;
+}
+body.minecraft-mode .window-header { background: #424242 !important; color: #ffffff !important; border-bottom: 2px solid #212121; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
@@ -338,6 +458,43 @@ body.spin-magic { transform: rotate(360deg); transition: transform 2s ease-in-ou
     50% {transform: translate3d(0, 0, 0) scale3d(1.15, 0.85, 1);} 
     65% {transform: translate3d(0, 0, 0) scale3d(0.95, 1.05, 1);} 
     75% {transform: translate3d(0, 0, 0) scale3d(1.05, 0.95, 1);} 
+}
+
+.wobble-stretch { animation: wobble-stretch 0.8s ease-in-out; }
+@keyframes wobble-stretch {
+    0%, 100% { transform: scale(1, 1); }
+    25% { transform: scale(1.3, 0.8); }
+    50% { transform: scale(0.8, 1.3); }
+    75% { transform: scale(1.1, 0.9); }
+}
+
+.wobble-pop { animation: wobble-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes wobble-pop {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+
+.wobble-wiggle { animation: wobble-wiggle 0.5s ease-in-out; }
+@keyframes wobble-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(5deg); }
+}
+
+.wobble-squeeze { animation: wobble-squeeze 0.6s ease-in-out; }
+@keyframes wobble-squeeze {
+    0%, 100% { transform: scale(1, 1); }
+    50% { transform: scale(0.8, 1.2); }
+}
+
+.wobble-roll { animation: wobble-roll 0.8s ease-in-out; }
+@keyframes wobble-roll {
+    0% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-15px) rotate(-15deg); }
+    50% { transform: translateX(15px) rotate(15deg); }
+    75% { transform: translateX(-15px) rotate(-15deg); }
+    100% { transform: translateX(0) rotate(0deg); }
 }
 
 .filter-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem; justify-content: center; }
