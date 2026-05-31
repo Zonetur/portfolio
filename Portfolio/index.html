@@ -14,6 +14,7 @@
             <li id="ctx-terminal" data-i18n="ctx-terminal">Uruchom Terminal</li>
             <li id="ctx-update" data-i18n="ctx-update">Sprawdź aktualizacje</li>
             <li id="ctx-personal" data-i18n="ctx-personal">Opcje personalizacji</li>
+            <li id="ctx-secrets" data-i18n="ctx-secrets">Sekretne komendy</li>
         </ul>
     </div>
 
@@ -138,6 +139,64 @@
         <p>&copy; 2026 Aleksander Zientara OS - <span id="os-version">v2.1 Pro</span></p>
     </footer>
 
+    <select id="minecraft-music-select" class="action-btn" style="display: none; position: fixed; top: 20px; left: 20px; z-index: 10000; width: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+        <option value="0">Key</option>
+        <option value="64">Subwoofer Lullaby</option>
+        <option value="280">Living Mice</option>
+        <option value="450">Haggstrom</option>
+        <option value="653">Minecraft</option>
+        <option value="908">Oxygene</option>
+        <option value="974">Mice on Venus</option>
+        <option value="1268">Dry Hands</option>
+        <option value="1324">Wet Hands</option>
+        <option value="1414">Clark</option>
+        <option value="1606">Sweden</option>
+        <option value="1821">Danny</option>
+        <option value="2078">Biome Fest</option>
+        <option value="2458">Blind Spots</option>
+        <option value="2794">Haunt Muskie</option>
+        <option value="3152">Aria Math</option>
+        <option value="3474">Dreiton</option>
+        <option value="3965">Taswell</option>
+        <option value="4472">Mutation</option>
+        <option value="4666">Moog City 2</option>
+        <option value="4852">Beginning 2</option>
+        <option value="5036">Floating Trees</option>
+        <option value="5281">Concrete Halls</option>
+        <option value="5542">Dead Voxel</option>
+        <option value="5844">Warmth</option>
+        <option value="6088">Ballad of the Cats</option>
+        <option value="6363">Boss</option>
+        <option value="6708">End</option>
+    </select>
+
+    <select id="retro-music-select" class="action-btn" style="display: none; position: fixed; top: 20px; left: 20px; z-index: 10000; width: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+        <option value="LQw-a8sApLQ">Synthwave Mix 1</option>
+        <option value="Ng1QxtqoK7c">Synthwave Mix 2</option>
+        <option value="t7S6qod6tZ8">Synthwave Mix 3</option>
+        <option value="ywRGNGRmRws">Synthwave Mix 4</option>
+        <option value="6Vaqo0-sjLg">Synthwave Mix 5</option>
+        <option value="wvT8KrI1nvo">Uwa!! So Temperate♫</option>
+        <option value="0FCvzsVlXpQ">Megalovania</option>
+        <option value="NH-GAwLAO30">Spider Dance</option>
+        <option value="wbO3p7_Mf30">Hopes and Dreams</option>
+        <option value="AKAiUtWZ4xY">Bonetrousle</option>
+    </select>
+    
+    <button id="retro-battle-btn" class="action-btn" style="display: none; position: fixed; top: 60px; left: 20px; z-index: 10000; width: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-family: monospace; font-weight: bold; background: #000; color: #fff; border: 2px solid #fff; cursor: pointer;">[ BATTLE ENCOUNTER ]</button>
+
+    <!-- ═══ CYBERPUNK GAMES TOOLBAR ═══ -->
+    <div id="cp-games-panel" style="
+        display:none; position:fixed; top:10px; left:10px; z-index:10001;
+        flex-direction:column; gap:6px; align-items:flex-start;">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#f0f;letter-spacing:2px;text-shadow:0 0 8px #f0f;margin-bottom:2px;">◈ CYBERPUNK OS v2.0.77</div>
+        <button id="cp-btn-netrunner" class="cp-game-btn">⬡ NETRUNNER</button>
+        <button id="cp-btn-pong"      class="cp-game-btn">◉ NEON PONG</button>
+        <button id="cp-btn-type"      class="cp-game-btn">⌨ TYPE JACK</button>
+        <button id="cp-btn-glitch"    class="cp-game-btn">⚡ GLITCH PAGE</button>
+        <button id="cp-btn-scanner"   class="cp-game-btn">⊙ SCAN SYSTEM</button>
+    </div>
+
     <aside id="action-center" class="action-center glass">
         <div class="action-center-header">
             <h2 data-i18n="ac-title">Centrum Akcji</h2>
@@ -182,14 +241,23 @@
                 <option value="skew" data-i18n="opt-skew">Wyginanie (Skew)</option>
                 <option value="zoom" data-i18n="opt-zoom">Skok (Zoom)</option>
                 <option value="jello" data-i18n="opt-jello">Miękka Galaretka</option>
+                <option value="stretch" data-i18n="opt-stretch">Rozciąganie (Stretch)</option>
+                <option value="pop" data-i18n="opt-pop">Wyskakiwanie (Pop)</option>
+                <option value="wiggle" data-i18n="opt-wiggle">Pajacyk (Wiggle)</option>
+                <option value="squeeze" data-i18n="opt-squeeze">Ściskanie (Squeeze)</option>
+                <option value="roll" data-i18n="opt-roll">Toczenie (Roll)</option>
             </select>
 
             <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="mode-settings">Tryby Systemu</h3>
-            <div class="action-controls" style="margin-bottom: 20px;">
+            <div class="action-controls" style="margin-bottom: 20px; flex-wrap: wrap;">
                 <button id="hacker-btn" class="action-btn" data-i18n="ctx-hacker">Tryb Hakera</button>
                 <button id="cyberpunk-btn" class="action-btn" data-i18n="ctx-cyberpunk">Tryb Cyberpunk</button>
                 <button id="retro-btn" class="action-btn" data-i18n="ctx-retro">Tryb Retro</button>
+                <button id="baldi-btn" class="action-btn" data-i18n="ctx-baldi" style="margin-top: 5px;">Tryb Baldi</button>
+                <button id="minecraft-btn" class="action-btn" data-i18n="ctx-minecraft" style="margin-top: 5px;">Tryb Minecraft</button>
             </div>
+            
+
 
             <h3 style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.8;" data-i18n="color-settings">Personalizacja</h3>
             <div class="action-controls" style="margin-bottom: 20px;">
@@ -250,6 +318,122 @@
         </div>
     </div>
 
+    <div id="window-hacker-term" class="window" style="display:none; top: 100px; left: 100px; width: 700px; height: 450px; background: rgba(0,0,0,0.9); border: 1px solid #0f0; box-shadow: 0 0 15px #0f0; font-family: monospace; color: #0f0;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #0f0; color: #0f0;">
+            <span>HACKER TERMINAL - ATLAS TOBY</span>
+            <div class="window-controls">
+                <button class="win-btn minimize" style="color: #0f0;">_</button>
+                <button class="win-btn close" style="color: #0f0;">X</button>
+            </div>
+        </div>
+        <div class="window-content terminal-content" style="padding: 10px; overflow-y: auto; height: calc(100% - 30px);">
+            <div id="hacker-term-output">
+                <p>ATLAS_TOBY_SYSTEM_v1.0.4 - [ACCESS GRANTED]</p>
+                <p>Type 'hack' to begin intrusion protocol. Type 'help' for modules.</p>
+            </div>
+            <div class="term-input-line" style="display: flex; margin-top: 5px;">
+                <span class="prompt" style="color: #0f0; margin-right: 8px;">root@atlas-toby:~#</span>
+                <input type="text" id="hacker-term-input" autocomplete="off" spellcheck="false" style="background: transparent; border: none; color: #0f0; font-family: monospace; flex-grow: 1; outline: none;">
+            </div>
+        </div>
+    </div>
+
+    <div id="hacker-tools-panel" class="window" style="display:none; position: fixed; bottom: 20px; left: 20px; width: 250px; background: rgba(0,20,0,0.9); border: 1px solid #0f0; z-index: 9000;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #0f0; color: #0f0; font-weight: bold; justify-content: center;">
+            <span>HACKER TOOLS v1.0</span>
+        </div>
+        <div class="window-content" style="padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+            <button id="btn-hack-firewall" class="action-btn" style="border: 1px dashed #0f0; color: #0f0; background: #000; font-family: monospace;">Breach Firewall</button>
+            <button id="btn-hack-decrypt" class="action-btn" style="border: 1px dashed #0f0; color: #0f0; background: #000; font-family: monospace;">Decrypt Data</button>
+            <button id="btn-hack-trace" class="action-btn" style="border: 1px dashed #0f0; color: #0f0; background: #000; font-family: monospace;">Trace Target IP</button>
+        </div>
+    </div>
+
+    <div id="window-decrypt" class="window" style="display:none; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 350px; background: rgba(0,0,0,0.95); border: 2px solid #0f0; color: #0f0; font-family: monospace; z-index: 9999;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #0f0;">
+            <span>DECRYPTOR ENGINE</span>
+            <div class="window-controls"><button class="win-btn close" style="color:#0f0;">X</button></div>
+        </div>
+        <div class="window-content" style="padding: 20px; text-align: center;">
+            <p style="margin-bottom: 10px;">Click "EXTRACT" exactly when the text turns RED to intercept the key!</p>
+            <div id="decrypt-text" style="font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 20px; word-break: break-all; min-height: 30px;">@#$%*&^</div>
+            <button id="decrypt-action-btn" class="action-btn" style="border: 1px solid #0f0; color: #0f0; background: #000; width: 100%; font-weight: bold;">EXTRACT KEY</button>
+            <p id="decrypt-status" style="margin-top: 10px; font-weight: bold; min-height: 20px;"></p>
+        </div>
+    </div>
+
+    <div id="window-trace" class="window" style="display:none; top: 40%; left: 30%; width: 400px; background: rgba(0,0,0,0.95); border: 2px solid #0f0; color: #0f0; font-family: monospace; z-index: 9999;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #0f0;">
+            <span>IP TRACER ROUTINE</span>
+            <div class="window-controls"><button class="win-btn close" style="color:#0f0;">X</button></div>
+        </div>
+        <div class="window-content" style="padding: 10px; font-size: 0.9rem; height: 250px; overflow-y: auto;" id="trace-output">
+            <!-- Output goes here -->
+        </div>
+    </div>
+
+    <div id="window-firewall-breach" class="window" style="display:none; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; background: rgba(0,20,0,0.95); border: 2px solid #0f0; box-shadow: 0 0 20px #0f0; font-family: monospace; color: #0f0; text-align: center; z-index: 9999;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #0f0; color: #0f0; display: flex; justify-content: center;">
+            <span style="animation: hacker-flicker 0.2s infinite; font-weight: bold; font-size: 1.1rem; color: red;">⚠️ FIREWALL DETECTED ⚠️</span>
+            <div class="window-controls" style="position: absolute; right: 5px;">
+                <button class="win-btn close" style="color: #0f0;">X</button>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 20px; text-align: center;">
+            <p style="margin-bottom: 15px; font-size: 1.1rem;">SECURITY PROTOCOLS ENGAGED.</p>
+            <p style="margin-bottom: 15px; color: #fff;">Mash any keys on your keyboard rapidly to overload the firewall and gain access!</p>
+            
+            <div style="width: 100%; height: 30px; border: 2px solid #0f0; margin: 20px 0; position: relative;">
+                <div id="firewall-progress-bar" style="width: 0%; height: 100%; background: #0f0; transition: width 0.1s;"></div>
+                <div id="firewall-progress-text" style="position: absolute; top: 5px; left: 0; width: 100%; text-align: center; color: #000; font-weight: bold; mix-blend-mode: difference;">0%</div>
+            </div>
+            
+            <p id="firewall-status-text" style="height: 20px; color: red; font-weight: bold;"></p>
+        </div>
+        </div>
+    </div>
+
+    <div id="window-atlastoby-game" class="window" style="display:none; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 480px; background: rgba(20,0,0,0.95); border: 2px solid #f00; box-shadow: 0 0 30px #f00; font-family: monospace; color: #f00; text-align: center; z-index: 99999;">
+        <div class="window-header" style="background: #000; border-bottom: 1px solid #f00; color: #f00; display: flex; justify-content: center;">
+            <span id="atlastoby-game-title" style="animation: hacker-flicker 0.2s infinite; font-weight: bold; font-size: 1.1rem; color: #f00;">GAME OF DEATH</span>
+            <div class="window-controls" style="position: absolute; right: 5px;">
+                <button class="win-btn close" style="color: #f00;">X</button>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 20px; text-align: center;">
+            <div id="atlastoby-game-content">
+                <!-- Game UI will be injected here by JS -->
+            </div>
+            <div style="width: 100%; height: 20px; border: 1px solid #f00; position: relative; margin-top: 15px;">
+                <div id="atlastoby-timer-bar" style="width: 100%; height: 100%; background: #f00; transition: width 0.1s linear;"></div>
+            </div>
+            <p id="atlastoby-status" style="height: 20px; color: #fff; font-weight: bold; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <div id="window-undertale-game" class="window glass" style="display:none; top: 120px; left: 50%; transform: translateX(-50%); width: 440px;">
+        <div class="window-header">
+            <span>BATTLE ENCOUNTER</span>
+            <div class="window-controls">
+                <button class="win-btn minimize">_</button>
+                <button class="win-btn close">X</button>
+            </div>
+        </div>
+        <div class="window-content" style="text-align: center; background: #000; display: flex; flex-direction: column; overflow: hidden;">
+            <div id="undertale-timer" style="color: white; font-family: monospace; font-size: 1.2rem; margin-bottom: 10px; font-weight: bold; flex-shrink: 0;">SURVIVED: 0.0s</div>
+            <canvas id="undertale-canvas" width="400" height="300" style="background: #000; border: 4px solid #fff; border-radius: 0px; display: block; margin: 0 auto; outline: 2px solid #000; box-shadow: 0 0 0 6px #fff; width: 100%; height: 100%; object-fit: contain; min-height: 0;"></canvas>
+            <div style="margin-top: 20px; font-family: monospace; flex-shrink: 0;">
+                <select id="undertale-difficulty" style="background: #000; color: #fff; border: 2px solid #fff; padding: 5px; font-family: monospace; font-size: 1rem; cursor: pointer; outline: none;">
+                    <option value="easy">DIFFICULTY: EASY</option>
+                    <option value="normal" selected>DIFFICULTY: NORMAL</option>
+                    <option value="hard">DIFFICULTY: HARD</option>
+                    <option value="lunatic">DIFFICULTY: LUNATIC</option>
+                </select>
+            </div>
+            <button id="start-undertale-btn" class="theme-btn" style="margin-top: 15px; width: 100%; border-color: #fff; color: white; background: #000; font-family: monospace; font-weight: bold; font-size: 1.1rem; border: 2px solid #fff;">[ FIGHT ]</button>
+        </div>
+    </div>
+
     <div id="window-snake" class="window glass" style="display:none; top: 120px; left: 50%; transform: translateX(-50%); width: 340px;">
         <div class="window-header">
             <span>Snake OS</span>
@@ -258,9 +442,32 @@
                 <button class="win-btn close">X</button>
             </div>
         </div>
-        <div class="window-content" style="text-align: center; background: #222;">
-            <canvas id="snake-canvas" width="300" height="300" style="background: #000; border: 2px solid var(--metro-blue); border-radius: 4px; display: block; margin: 0 auto;"></canvas>
-            <button id="start-snake-btn" class="theme-btn" style="margin-top: 15px; width: 100%; border-color: var(--metro-green); color: white; background: var(--metro-green);">Graj</button>
+        <div class="window-content" style="text-align: center; background: #222; display: flex; flex-direction: column; overflow: hidden;">
+            <canvas id="snake-canvas" width="300" height="300" style="background: #000; border: 2px solid var(--metro-blue); border-radius: 4px; display: block; margin: 0 auto; width: 100%; height: 100%; object-fit: contain; min-height: 0;"></canvas>
+            <button id="start-snake-btn" class="theme-btn" style="margin-top: 15px; width: 100%; border-color: var(--metro-green); color: white; background: var(--metro-green); flex-shrink: 0;">Graj</button>
+        </div>
+    </div>
+
+    <div id="window-secrets" class="window glass" style="display:none; top: 150px; left: 50%; transform: translateX(-50%); width: 400px; max-width: 90vw;">
+        <div class="window-header">
+            <span data-i18n="secrets-title">Sekretne komendy</span>
+            <div class="window-controls">
+                <button class="win-btn minimize">_</button>
+                <button class="win-btn close">X</button>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 15px;">
+            <p style="margin-bottom: 10px; font-style: italic; opacity: 0.8; font-size: 0.9em;">(Możesz kliknąć w komendę, aby ją uruchomić)</p>
+            <ul style="list-style-type: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                <li class="secret-item" data-secret="atlastoby" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">atlastoby</strong> - ultra hacker terminal</li>
+                <li class="secret-item" data-secret="invincible" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">invincible</strong> - nieśmiertelność</li>
+                <li class="secret-item" data-secret="magia" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">magia</strong> - magiczny obrót</li>
+                <li class="secret-item" data-secret="rower" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">rower</strong> - rowerzysta</li>
+                <li class="secret-item" data-secret="matrix" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">↑ ↑ ↓ ↓ ← → ← → B A Enter</strong> - Konami Code (Matrix)</li>
+                <li class="secret-item" data-secret="wobble" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">wobble</strong> - trzęsienie systemu (terminal)</li>
+                <li class="secret-item" data-secret="ignacy" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s;"><strong style="color: var(--metro-blue);">ignacy</strong> - ukryty folder (terminal)</li>
+                <li class="secret-item" data-secret="rmrf" style="cursor: pointer; padding: 5px; border-radius: 4px; transition: background 0.2s; color: red;"><strong style="color: red;">sudo rm -rf /*</strong> - usuwanie systemu (terminal)</li>
+            </ul>
         </div>
     </div>
 
