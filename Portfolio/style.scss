@@ -589,6 +589,119 @@ select.action-btn option { background-color: var(--bg-color); color: var(--text-
 
 footer { padding: 2rem 1rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; opacity: 0.7; margin-top: 2rem; }
 
+/* =========================================
+   GEASS MODE STYLES
+   ========================================= */
+body.geass-mode {
+    --bg-color: #050005;
+    --text-color: #ffcccc;
+    --border-color: #ff0040;
+    --input-bg: rgba(26, 0, 10, 0.8);
+    --project-bg: rgba(20, 0, 5, 0.8);
+    --btn-bg: #ff0040;
+    --btn-text: #ffffff;
+    --glass-bg: rgba(20, 0, 5, 0.9);
+    --glass-border: #ff0040;
+    --metro-blue: #ff0040;
+    --metro-green: #ff4466;
+    --metro-purple: #cc0033;
+    --metro-orange: #d4a017;
+    --metro-teal: #990022;
+    --metro-red: #ff0000;
+    background-image: radial-gradient(circle at center, #1a0005 0%, #000000 100%);
+}
+
+body.geass-mode *, body.geass-mode {
+    font-family: 'Georgia', 'Times New Roman', serif !important;
+}
+
+body.geass-mode .tile, body.geass-mode .glass-panel, body.geass-mode .window, body.geass-mode .action-btn {
+    border: 1px solid rgba(255, 0, 64, 0.5) !important;
+    box-shadow: 0 0 15px rgba(255, 0, 64, 0.2) !important;
+    background: rgba(20, 0, 5, 0.8) !important;
+}
+
+body.geass-mode .tile:hover, body.geass-mode .action-btn:hover, body.geass-mode .theme-btn:hover {
+    box-shadow: 0 0 20px rgba(255, 0, 64, 0.8) !important;
+    border-color: #ff0040 !important;
+    background: #ff0040 !important;
+    color: white !important;
+}
+
+body.geass-mode .window-header {
+    background: linear-gradient(135deg, #1a0008, #330015) !important;
+    color: #ff0040 !important;
+    border-bottom: 1px solid rgba(255, 0, 64, 0.5) !important;
+}
+
+#geass-entrance-flash {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #ff0040;
+    z-index: 200000;
+    pointer-events: none;
+    animation: geass-flash-anim 1.5s ease-out forwards;
+}
+@keyframes geass-flash-anim {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+#geass-eye-overlay {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vh; height: 60vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+#geass-vignette {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle, transparent 40%, rgba(50, 0, 10, 0.8) 100%);
+    z-index: 99990;
+    pointer-events: none;
+}
+
+#geass-scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(to bottom, transparent 50%, rgba(255, 0, 64, 0.05) 51%, transparent 51%);
+    background-size: 100% 4px;
+    z-index: 99991;
+    pointer-events: none;
+}
+
+#geass-status-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0; height: 26px;
+    background: rgba(10, 0, 5, 0.9);
+    border-top: 1px solid #ff0040;
+    display: flex; align-items: center; padding: 0 15px; gap: 20px;
+    z-index: 99998;
+    font-family: monospace !important; font-size: 11px; font-weight: bold;
+    pointer-events: none;
+}
+
+.geass-command-popup {
+    position: fixed;
+    color: #ff0040;
+    font-size: 2rem;
+    font-weight: 900;
+    text-shadow: 0 0 10px #ff0040, 0 0 20px #ff0040;
+    pointer-events: none;
+    z-index: 99999;
+    animation: geass-popup-anim 2.5s ease-out forwards;
+}
+@keyframes geass-popup-anim {
+    0% { transform: scale(0.5); opacity: 0; }
+    20% { transform: scale(1.2); opacity: 1; }
+    80% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
 @media (max-width: 768px) {
     .navbar ul { gap: 1.2rem; flex-wrap: wrap; }
     .nav-container { flex-direction: column; gap: 10px; }
