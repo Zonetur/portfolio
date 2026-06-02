@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aleksander OS v2.1 Pro</title>
+    <link rel="icon" href="mzdj_face.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +21,10 @@
 
     <header class="navbar glass">
         <div class="nav-container">
-            <h1>Aleksander Zientara</h1>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="mzdj_face.jpg" alt="Moje zdjęcie" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--glass-border);">
+                <h1>Aleksander Zientara</h1>
+            </div>
             <div class="nav-controls">
                 <button id="theme-toggle" class="theme-btn" data-i18n="theme-dark">Tryb ciemny</button>
                 <button id="action-center-btn" class="theme-btn" data-i18n="panel">Panel akcji</button>
@@ -185,6 +189,12 @@
     
     <button id="retro-battle-btn" class="action-btn" style="display: none; position: fixed; top: 60px; left: 20px; z-index: 10000; width: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-family: monospace; font-weight: bold; background: #000; color: #fff; border: 2px solid #fff; cursor: pointer;">[ BATTLE ENCOUNTER ]</button>
 
+    <select id="geass-music-select">
+        <option value="sc:mikazuki-anisa/code-geass-stories">♛ Stories (Code Geass OST)</option>
+        <option value="sc:lord-snowman/code-geass-ost-all-hail-britannia">♛ All Hail Britannia!</option>
+        <option value="yt:iqjNTv4gAAg">♛ Code Geass - Madder Sky</option>
+    </select>
+
     <!-- ═══ CYBERPUNK GAMES TOOLBAR ═══ -->
     <div id="cp-games-panel" style="
         display:none; position:fixed; top:10px; left:10px; z-index:10001;
@@ -255,6 +265,7 @@
                 <button id="retro-btn" class="action-btn" data-i18n="ctx-retro">Tryb Retro</button>
                 <button id="baldi-btn" class="action-btn" data-i18n="ctx-baldi" style="margin-top: 5px;">Tryb Baldi</button>
                 <button id="minecraft-btn" class="action-btn" data-i18n="ctx-minecraft" style="margin-top: 5px;">Tryb Minecraft</button>
+                <button id="geass-btn" class="action-btn" data-i18n="ctx-geass" style="margin-top: 5px;">Tryb Code Geass</button>
             </div>
             
 
