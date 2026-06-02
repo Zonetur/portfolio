@@ -143,7 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "ctx-baldi": "Tryb Baldi",
             "nt-mode-baldi": "Witaj w szkole Baldi'ego!",
             "ctx-minecraft": "Tryb Minecraft",
-            "nt-mode-minecraft": "Witaj w świecie z klocków!"
+            "nt-mode-minecraft": "Witaj w świecie z klocków!",
+            "ctx-geass": "Tryb Code Geass",
+            "nt-mode-geass": "Lelouch vi Britannia rozkazuje ci... POSŁUCHAJ MNIE!"
         },
         "en-us": {
             "theme-dark": "Dark Mode",
@@ -243,7 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "ctx-baldi": "Baldi Mode",
             "nt-mode-baldi": "Welcome to Baldi's Basics!",
             "ctx-minecraft": "Minecraft Mode",
-            "nt-mode-minecraft": "Welcome to the blocky world!"
+            "nt-mode-minecraft": "Welcome to the blocky world!",
+            "ctx-geass": "Code Geass Mode",
+            "nt-mode-geass": "Lelouch vi Britannia commands you... OBEY ME!"
         }
     };
 
@@ -337,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const modes = ['dark-mode', 'hacker-mode', 'cyberpunk-mode', 'retro-mode', 'baldi-mode', 'minecraft-mode'];
+    const modes = ['dark-mode', 'hacker-mode', 'cyberpunk-mode', 'retro-mode', 'baldi-mode', 'minecraft-mode', 'geass-mode'];
     function setMode(modeToEnable) {
         modes.forEach(m => document.body.classList.remove(m));
 
@@ -411,6 +415,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window._cpCursorTrail) { document.removeEventListener('mousemove', window._cpCursorTrail); window._cpCursorTrail = null; }
         // remove any lingering trail dots
         document.querySelectorAll('.cp-trail-dot').forEach(d => d.remove());
+
+        // ── Code Geass cleanup ──────────────────────────────────────────────────
+        const geassAudioOld = document.getElementById('geass-audio');
+        if (geassAudioOld) { geassAudioOld.src = ''; geassAudioOld.remove(); }
+        const geassEyeOverlay = document.getElementById('geass-eye-overlay');
+        if (geassEyeOverlay) geassEyeOverlay.remove();
+        const geassVignette = document.getElementById('geass-vignette');
+        if (geassVignette) geassVignette.remove();
+        const geassScanline = document.getElementById('geass-scanline');
+        if (geassScanline) geassScanline.remove();
+        const geassStatusBar = document.getElementById('geass-status-bar');
+        if (geassStatusBar) geassStatusBar.remove();
+        const geassFlash = document.getElementById('geass-entrance-flash');
+        if (geassFlash) geassFlash.remove();
+        const geassMusicSelect = document.getElementById('geass-music-select');
+        if (geassMusicSelect) geassMusicSelect.style.display = 'none';
+        if (window._geassCommandInterval) { clearInterval(window._geassCommandInterval); window._geassCommandInterval = null; }
+        if (window._geassStatusInterval) { clearInterval(window._geassStatusInterval); window._geassStatusInterval = null; }
+        if (window._geassCursorTrail) { document.removeEventListener('mousemove', window._geassCursorTrail); window._geassCursorTrail = null; }
+        if (window._geassParticleAF) { cancelAnimationFrame(window._geassParticleAF); window._geassParticleAF = null; }
+        const geassCanvasOld = document.getElementById('geass-particle-canvas');
+        if (geassCanvasOld) geassCanvasOld.remove();
+        if (window._geassResize) { window.removeEventListener('resize', window._geassResize); window._geassResize = null; }
+        const geassGamesPanelCleanup = document.getElementById('geass-games-panel');
+        if (geassGamesPanelCleanup) geassGamesPanelCleanup.style.display = 'none';
+        const geassKmWin = document.getElementById('window-knightmare');
+        if (geassKmWin) geassKmWin.style.display = 'none';
+        const geassMemWin = document.getElementById('window-geass-memory');
+        if (geassMemWin) geassMemWin.style.display = 'none';
+        document.querySelectorAll('.geass-particle').forEach(d => d.remove());
+        document.querySelectorAll('.geass-command-popup').forEach(d => d.remove());
 
 
         if (modeToEnable) {
@@ -777,6 +812,420 @@ document.addEventListener('DOMContentLoaded', () => {
                 mcAudio.src = `https://www.youtube.com/embed/iMCwrCC6AcM?autoplay=1&controls=0&showinfo=0&autohide=1&start=${startTime}`;
                 document.body.appendChild(mcAudio);
             }
+            // ═══════════════════════════════════════════════════════════════════
+            // CODE GEASS MODE (optimized)
+            // ═══════════════════════════════════════════════════════════════════
+            if (modeToEnable === 'geass-mode') {
+                toastKey = 'nt-mode-geass';
+                type = 'error';
+
+                // Show music selector & games panel
+                const geassSelect = document.getElementById('geass-music-select');
+                if (geassSelect) geassSelect.style.display = 'block';
+
+                // ── Music (SoundCloud / YouTube widget) ───────────────────────
+                const trackValue = geassSelect ? geassSelect.value : 'sc:mikazuki-anisa/code-geass-stories';
+                const geassAudio = document.createElement('iframe');
+                geassAudio.id = 'geass-audio';
+                geassAudio.width = '0';
+                geassAudio.height = '0';
+                geassAudio.style.cssText = 'position:absolute;width:0;height:0;border:0;overflow:hidden;';
+                geassAudio.setAttribute('allow', 'autoplay');
+                if (trackValue.startsWith('sc:')) {
+                    geassAudio.src = `https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/${trackValue.substring(3)}&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false`;
+                } else if (trackValue.startsWith('yt:')) {
+                    geassAudio.src = `https://www.youtube.com/embed/${trackValue.substring(3)}?autoplay=1&controls=0&showinfo=0&autohide=1&loop=1&playlist=${trackValue.substring(3)}`;
+                }
+                document.body.appendChild(geassAudio);
+
+                // ── Dramatic entrance flash ───────────────────────────────────
+                const flash = document.createElement('div');
+                flash.id = 'geass-entrance-flash';
+                document.body.appendChild(flash);
+                setTimeout(() => flash.remove(), 1600);
+
+                // ── Geass Eye SVG Overlay (sigil in background) ───────────────
+                const eyeOverlay = document.createElement('div');
+                eyeOverlay.id = 'geass-eye-overlay';
+                eyeOverlay.innerHTML = `
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="geass-glow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" style="stop-color:#ff0040;stop-opacity:0.6"/>
+                                <stop offset="60%" style="stop-color:#cc0033;stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#990022;stop-opacity:0"/>
+                            </radialGradient>
+                        </defs>
+                        <ellipse cx="100" cy="100" rx="90" ry="55" fill="none" stroke="#ff0040" stroke-width="2" opacity="0.6"/>
+                        <ellipse cx="100" cy="100" rx="85" ry="50" fill="none" stroke="#cc0033" stroke-width="1" opacity="0.3"/>
+                        <circle cx="100" cy="100" r="40" fill="url(#geass-glow)" stroke="#ff0040" stroke-width="1.5" opacity="0.5"/>
+                        <circle cx="100" cy="100" r="18" fill="#ff0040" opacity="0.4"/>
+                        <circle cx="100" cy="100" r="12" fill="#cc0033" opacity="0.6"/>
+                        <path d="M100,70 L92,85 L80,82 L88,95 L75,100 L88,105 L80,118 L92,115 L100,130 L108,115 L120,118 L112,105 L125,100 L112,95 L120,82 L108,85 Z" 
+                              fill="#ff0040" opacity="0.7" stroke="#ff6688" stroke-width="0.5">
+                            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
+                        </path>
+                        <circle cx="100" cy="100" r="28" fill="none" stroke="#ff0040" stroke-width="1" stroke-dasharray="4 4" opacity="0.5">
+                            <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="15s" repeatCount="indefinite"/>
+                        </circle>
+                        <line x1="10" y1="100" x2="40" y2="100" stroke="#ff0040" stroke-width="1" opacity="0.3"/>
+                        <line x1="160" y1="100" x2="190" y2="100" stroke="#ff0040" stroke-width="1" opacity="0.3"/>
+                        <line x1="100" y1="30" x2="100" y2="50" stroke="#ff0040" stroke-width="1" opacity="0.3"/>
+                        <line x1="100" y1="150" x2="100" y2="170" stroke="#ff0040" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                `;
+                document.body.appendChild(eyeOverlay);
+
+                // ── Vignette overlay ──────────────────────────────────────────
+                const vignette = document.createElement('div');
+                vignette.id = 'geass-vignette';
+                document.body.appendChild(vignette);
+
+                // ── Red scanline ──────────────────────────────────────────────
+                const scanline = document.createElement('div');
+                scanline.id = 'geass-scanline';
+                document.body.appendChild(scanline);
+
+                // ── Canvas-based cursor particle trail (NO DOM thrashing) ─────
+                const geassCanvas = document.createElement('canvas');
+                geassCanvas.id = 'geass-particle-canvas';
+                geassCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;';
+                geassCanvas.width = window.innerWidth;
+                geassCanvas.height = window.innerHeight;
+                document.body.appendChild(geassCanvas);
+                const gCtx = geassCanvas.getContext('2d');
+                const geassParticles = [];
+                let geassMouseX = 0, geassMouseY = 0;
+
+                let lastGeassParticleTime = 0;
+                function geassCursorTrail(e) {
+                    if (!document.body.classList.contains('geass-mode')) { document.removeEventListener('mousemove', geassCursorTrail); return; }
+                    geassMouseX = e.clientX;
+                    geassMouseY = e.clientY;
+                    const now = Date.now();
+                    if (now - lastGeassParticleTime > 40) { // Throttle particle creation to save performance
+                        lastGeassParticleTime = now;
+                        for (let i = 0; i < 2; i++) {
+                            geassParticles.push({
+                                x: geassMouseX + (Math.random() - 0.5) * 12,
+                                y: geassMouseY + (Math.random() - 0.5) * 12,
+                                size: Math.random() * 4 + 1.5,
+                                life: 1,
+                                decay: 0.015 + Math.random() * 0.01,
+                                gold: Math.random() > 0.75
+                            });
+                        }
+                    }
+                }
+                document.addEventListener('mousemove', geassCursorTrail);
+                window._geassCursorTrail = geassCursorTrail;
+
+                function drawGeassParticles() {
+                    if (!document.getElementById('geass-particle-canvas')) return;
+                    gCtx.clearRect(0, 0, geassCanvas.width, geassCanvas.height);
+                    for (let i = geassParticles.length - 1; i >= 0; i--) {
+                        const p = geassParticles[i];
+                        p.life -= p.decay;
+                        p.y -= 0.8;
+                        if (p.life <= 0) { geassParticles.splice(i, 1); continue; }
+                        gCtx.globalAlpha = p.life;
+                        gCtx.beginPath();
+                        gCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                        if (p.gold) {
+                            gCtx.fillStyle = '#d4a017';
+                            gCtx.shadowColor = '#d4a017';
+                        } else {
+                            gCtx.fillStyle = '#ff0040';
+                            gCtx.shadowColor = '#ff0040';
+                        }
+                        gCtx.shadowBlur = p.size * 3;
+                        gCtx.fill();
+                    }
+                    gCtx.globalAlpha = 1;
+                    gCtx.shadowBlur = 0;
+                    window._geassParticleAF = requestAnimationFrame(drawGeassParticles);
+                }
+                drawGeassParticles();
+
+                // resize handler
+                function geassResize() {
+                    const c = document.getElementById('geass-particle-canvas');
+                    if (c) { c.width = window.innerWidth; c.height = window.innerHeight; }
+                }
+                window.addEventListener('resize', geassResize);
+                window._geassResize = geassResize;
+
+                // ── Britannia Status Bar ──────────────────────────────────────
+                const geassBar = document.createElement('div');
+                geassBar.id = 'geass-status-bar';
+                document.body.appendChild(geassBar);
+                const britanniaMessages = [
+                    'ALL HAIL BRITANNIA', 'GEASS POWER: ACTIVE', 'ZERO PROTOCOL ENGAGED',
+                    'BLACK KNIGHTS: ONLINE', 'KNIGHTMARE FRAME: READY', 'LANCELOT: DEPLOYED',
+                    'C.C. CONTRACT: BOUND', 'SHINKIRO: STANDING BY', 'AREA 11: SECURED',
+                    'ASHFORD ACADEMY: MONITORING', 'GUREN MK-II: ACTIVATED', 'DAMOCLES: ORBITAL'
+                ];
+                let geassBarIdx = 0;
+                function updateGeassBar() {
+                    if (!document.getElementById('geass-status-bar')) return;
+                    const hexChunk = Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16).toUpperCase()).join('');
+                    geassBar.innerHTML = `<span style="color:#ff0040;">♛ BRITANNIA</span> <span style="color:#d4a017">${britanniaMessages[geassBarIdx % britanniaMessages.length]}</span> <span style="color:#330015;">[${hexChunk}]</span> <span style="color:#ff6688;margin-left:auto;">GEASS:ACTIVE | POWER:${Math.floor(Math.random() * 100)}% | CODE:${Math.floor(Math.random() * 999)}</span>`;
+                    geassBarIdx++;
+                }
+                updateGeassBar();
+                window._geassStatusInterval = setInterval(() => {
+                    if (!document.getElementById('geass-status-bar')) { clearInterval(window._geassStatusInterval); return; }
+                    updateGeassBar();
+                }, 2500);
+
+                // ── Random Geass command popups (less frequent) ──────────────
+                const geassCommands = [
+                    'Rozkazuję ci... POSŁUCHAJ!', 'YES, YOUR MAJESTY!', 'ZERO REQUIEM',
+                    'Lelouch vi Britannia...', 'Moc Geass aktywna!', 'ALL HAIL LELOUCH!',
+                    'The Power of the King...', 'I COMMAND YOU!', 'OBEY ME!',
+                    'C.C... Kontynuuj kontrakt.', 'Suzaku... ŻYJESZ!', 'Schneizel...',
+                    'Nunnally... Przepraszam.', 'KALLEN! Do walki!', 'Geass: PEŁNA MOC',
+                    'Checkmate.', 'Code Geass: REBELLION', 'WORLD DOMINATION'
+                ];
+                window._geassCommandInterval = setInterval(() => {
+                    if (!document.body.classList.contains('geass-mode')) { clearInterval(window._geassCommandInterval); return; }
+                    const cmd = document.createElement('div');
+                    cmd.className = 'geass-command-popup';
+                    cmd.textContent = geassCommands[Math.floor(Math.random() * geassCommands.length)];
+                    cmd.style.left = (Math.random() * (window.innerWidth - 300) + 50) + 'px';
+                    cmd.style.top = (Math.random() * (window.innerHeight - 100) + 50) + 'px';
+                    document.body.appendChild(cmd);
+                    setTimeout(() => cmd.remove(), 2600);
+                }, 5000);
+
+                // ── Games Panel ──────────────────────────────────────────────
+                let geassGamesPanel = document.getElementById('geass-games-panel');
+                if (!geassGamesPanel) {
+                    geassGamesPanel = document.createElement('div');
+                    geassGamesPanel.id = 'geass-games-panel';
+                    geassGamesPanel.style.cssText = 'position:fixed;top:60px;left:20px;z-index:10001;display:flex;flex-direction:column;gap:6px;align-items:flex-start;';
+                    geassGamesPanel.innerHTML = `
+                        <div style="font-family:'Segoe UI',serif;font-size:10px;color:#ff0040;letter-spacing:2px;text-shadow:0 0 8px #ff0040;margin-bottom:2px;">♛ GEASS COMMAND CENTER</div>
+                        <button id="geass-btn-knightmare" class="geass-game-btn" style="background:rgba(10,0,8,0.9);color:#ff8899;border:1px solid rgba(255,0,64,0.5);padding:5px 12px;font-size:0.75rem;font-family:'Segoe UI',serif;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all 0.3s;">⚔ KNIGHTMARE BATTLE</button>
+                        <button id="geass-btn-memory" class="geass-game-btn" style="background:rgba(10,0,8,0.9);color:#ff8899;border:1px solid rgba(255,0,64,0.5);padding:5px 12px;font-size:0.75rem;font-family:'Segoe UI',serif;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all 0.3s;">🃏 GEASS MEMORY</button>
+                    `;
+                    document.body.appendChild(geassGamesPanel);
+                }
+                geassGamesPanel.style.display = 'flex';
+
+                // === KNIGHTMARE BATTLE MINI-GAME ===
+                document.getElementById('geass-btn-knightmare').onclick = function() {
+                    let kWin = document.getElementById('window-knightmare');
+                    if (kWin) { kWin.style.display = 'flex'; return; }
+                    kWin = document.createElement('div');
+                    kWin.id = 'window-knightmare';
+                    kWin.className = 'window';
+                    kWin.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;background:rgba(10,0,8,0.96);border:2px solid #ff0040;box-shadow:0 0 30px rgba(255,0,64,0.3);font-family:"Segoe UI",serif;color:#e8d5d0;z-index:100000;border-radius:0;';
+                    kWin.innerHTML = `
+                        <div class="window-header" style="background:linear-gradient(135deg,#1a0008,#330015);color:#ff0040;border-bottom:1px solid rgba(255,0,64,0.5);display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+                            <span style="letter-spacing:2px;text-transform:uppercase;font-size:0.9rem;">⚔ Knightmare Battle</span>
+                            <button onclick="document.getElementById('window-knightmare').style.display='none'" style="background:none;border:none;color:#ff0040;font-size:1.2rem;cursor:pointer;">✕</button>
+                        </div>
+                        <div style="padding:20px;text-align:center;">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:15px;">
+                                <div style="text-align:center;flex:1;">
+                                    <div style="font-size:2rem;" id="km-player-icon">🤖</div>
+                                    <div style="color:#d4a017;font-weight:bold;">LANCELOT</div>
+                                    <div style="width:100%;height:12px;border:1px solid #ff0040;margin-top:5px;background:#1a0008;">
+                                        <div id="km-player-hp" style="width:100%;height:100%;background:linear-gradient(90deg,#ff0040,#d4a017);transition:width 0.3s;"></div>
+                                    </div>
+                                    <div id="km-player-hp-text" style="font-size:0.7rem;color:#ff8899;margin-top:2px;">HP: 100/100</div>
+                                </div>
+                                <div style="font-size:1.5rem;color:#ff0040;align-self:center;margin:0 15px;font-weight:bold;">VS</div>
+                                <div style="text-align:center;flex:1;">
+                                    <div style="font-size:2rem;" id="km-enemy-icon">👾</div>
+                                    <div style="color:#ff4466;font-weight:bold;" id="km-enemy-name">GUREN MK-II</div>
+                                    <div style="width:100%;height:12px;border:1px solid #ff0040;margin-top:5px;background:#1a0008;">
+                                        <div id="km-enemy-hp" style="width:100%;height:100%;background:linear-gradient(90deg,#cc0033,#ff4466);transition:width 0.3s;"></div>
+                                    </div>
+                                    <div id="km-enemy-hp-text" style="font-size:0.7rem;color:#ff8899;margin-top:2px;">HP: 100/100</div>
+                                </div>
+                            </div>
+                            <div id="km-log" style="min-height:40px;margin:10px 0;font-size:0.85rem;color:#d4a017;font-style:italic;">Przygotuj się do walki!</div>
+                            <div id="km-actions" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                                <button id="km-attack" style="background:linear-gradient(135deg,#cc0033,#990022);color:#fff;border:1px solid #ff0040;padding:8px 16px;cursor:pointer;font-family:'Segoe UI',serif;font-weight:bold;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">⚔ ATAK</button>
+                                <button id="km-special" style="background:linear-gradient(135deg,#d4a017,#8b6914);color:#fff;border:1px solid #d4a017;padding:8px 16px;cursor:pointer;font-family:'Segoe UI',serif;font-weight:bold;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">✦ GEASS</button>
+                                <button id="km-defend" style="background:linear-gradient(135deg,#1a0008,#330015);color:#ff8899;border:1px solid rgba(255,0,64,0.5);padding:8px 16px;cursor:pointer;font-family:'Segoe UI',serif;font-weight:bold;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">🛡 OBRONA</button>
+                            </div>
+                            <div id="km-score" style="margin-top:10px;font-size:0.75rem;color:#ff6688;">Wygrane: <span id="km-wins">0</span> | Przegrane: <span id="km-losses">0</span></div>
+                        </div>
+                    `;
+                    document.body.appendChild(kWin);
+
+                    let pHP = 100, eHP = 100, kmWins = 0, kmLosses = 0, inBattle = true;
+                    const enemies = [
+                        {name: 'GUREN MK-II', icon: '👾'}, {name: 'SIEGFRIED', icon: '🦾'},
+                        {name: 'MORDRED', icon: '⚙️'}, {name: 'TRISTAN', icon: '🗡️'},
+                        {name: 'GALAHAD', icon: '🏰'}, {name: 'VINCENT', icon: '🤖'}
+                    ];
+                    let geassCharges = 1;
+
+                    function kmLog(msg) { document.getElementById('km-log').textContent = msg; }
+                    function kmUpdateBars() {
+                        document.getElementById('km-player-hp').style.width = Math.max(0, pHP) + '%';
+                        document.getElementById('km-enemy-hp').style.width = Math.max(0, eHP) + '%';
+                        document.getElementById('km-player-hp-text').textContent = `HP: ${Math.max(0,pHP)}/100`;
+                        document.getElementById('km-enemy-hp-text').textContent = `HP: ${Math.max(0,eHP)}/100`;
+                    }
+                    function kmEnemyAttack() {
+                        const dmg = Math.floor(Math.random() * 15) + 8;
+                        pHP -= dmg;
+                        kmUpdateBars();
+                        if (pHP <= 0) {
+                            kmLosses++;
+                            document.getElementById('km-losses').textContent = kmLosses;
+                            kmLog('☠ DEFEAT! Twój Knightmare został zniszczony...');
+                            inBattle = false;
+                            setTimeout(kmReset, 2000);
+                        } else {
+                            kmLog(`Wróg atakuje! -${dmg} HP. Twoja kolej!`);
+                        }
+                    }
+                    function kmReset() {
+                        const en = enemies[Math.floor(Math.random() * enemies.length)];
+                        pHP = 100; eHP = 100; inBattle = true; geassCharges = 1;
+                        document.getElementById('km-enemy-name').textContent = en.name;
+                        document.getElementById('km-enemy-icon').textContent = en.icon;
+                        kmUpdateBars();
+                        kmLog(`Nowy przeciwnik: ${en.name}! Przygotuj się!`);
+                    }
+
+                    document.getElementById('km-attack').onclick = function() {
+                        if (!inBattle) return;
+                        const dmg = Math.floor(Math.random() * 20) + 10;
+                        eHP -= dmg;
+                        kmUpdateBars();
+                        if (eHP <= 0) {
+                            kmWins++;
+                            document.getElementById('km-wins').textContent = kmWins;
+                            kmLog('🎉 VICTORY! ALL HAIL BRITANNIA!');
+                            inBattle = false;
+                            setTimeout(kmReset, 2000);
+                        } else {
+                            kmLog(`Atak! Zadajesz ${dmg} obrażeń!`);
+                            setTimeout(kmEnemyAttack, 800);
+                        }
+                    };
+                    document.getElementById('km-special').onclick = function() {
+                        if (!inBattle) return;
+                        if (geassCharges <= 0) { kmLog('Geass wymaga naładowania! Użyj zwykłego ataku.'); return; }
+                        geassCharges--;
+                        const dmg = Math.floor(Math.random() * 30) + 25;
+                        eHP -= dmg;
+                        kmUpdateBars();
+                        if (eHP <= 0) {
+                            kmWins++;
+                            document.getElementById('km-wins').textContent = kmWins;
+                            kmLog('🎉 GEASS POWER! VICTORY!');
+                            inBattle = false;
+                            setTimeout(kmReset, 2000);
+                        } else {
+                            kmLog(`✦ GEASS COMMAND! ${dmg} mega obrażeń!`);
+                            setTimeout(kmEnemyAttack, 800);
+                        }
+                    };
+                    document.getElementById('km-defend').onclick = function() {
+                        if (!inBattle) return;
+                        const dmg = Math.max(0, Math.floor(Math.random() * 8) - 3);
+                        pHP -= dmg;
+                        geassCharges = Math.min(geassCharges + 1, 3);
+                        kmUpdateBars();
+                        kmLog(`🛡 Obrona! Blokujesz atak (-${dmg} HP). Geass ładuje się... [${geassCharges}/3]`);
+                        setTimeout(() => {
+                            if (inBattle && pHP > 0) kmLog('Twoja kolej!');
+                        }, 600);
+                    };
+                };
+
+                // === GEASS MEMORY CARD GAME ===
+                document.getElementById('geass-btn-memory').onclick = function() {
+                    let mWin = document.getElementById('window-geass-memory');
+                    if (mWin) { mWin.style.display = 'flex'; return; }
+                    mWin = document.createElement('div');
+                    mWin.id = 'window-geass-memory';
+                    mWin.className = 'window';
+                    mWin.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:380px;background:rgba(10,0,8,0.96);border:2px solid #ff0040;box-shadow:0 0 30px rgba(255,0,64,0.3);font-family:"Segoe UI",serif;color:#e8d5d0;z-index:100000;';
+                    mWin.innerHTML = `
+                        <div class="window-header" style="background:linear-gradient(135deg,#1a0008,#330015);color:#ff0040;border-bottom:1px solid rgba(255,0,64,0.5);display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+                            <span style="letter-spacing:2px;text-transform:uppercase;font-size:0.9rem;">🃏 Geass Memory</span>
+                            <button onclick="document.getElementById('window-geass-memory').style.display='none'" style="background:none;border:none;color:#ff0040;font-size:1.2rem;cursor:pointer;">✕</button>
+                        </div>
+                        <div style="padding:15px;text-align:center;">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                                <span id="mem-moves" style="color:#d4a017;font-size:0.8rem;">Ruchy: 0</span>
+                                <span id="mem-pairs" style="color:#ff8899;font-size:0.8rem;">Pary: 0/8</span>
+                            </div>
+                            <div id="mem-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;"></div>
+                            <button id="mem-restart" style="margin-top:12px;background:linear-gradient(135deg,#cc0033,#990022);color:#fff;border:1px solid #ff0040;padding:6px 18px;cursor:pointer;font-family:'Segoe UI',serif;font-weight:bold;letter-spacing:1px;text-transform:uppercase;font-size:0.75rem;">NOWA GRA</button>
+                        </div>
+                    `;
+                    document.body.appendChild(mWin);
+
+                    const symbols = ['♛','⚔','🤖','🔴','👁','🗡️','⚙️','🎭'];
+                    let cards, flipped, matched, moves, canFlip;
+
+                    function memInit() {
+                        const grid = document.getElementById('mem-grid');
+                        grid.innerHTML = '';
+                        cards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+                        flipped = []; matched = []; moves = 0; canFlip = true;
+                        document.getElementById('mem-moves').textContent = 'Ruchy: 0';
+                        document.getElementById('mem-pairs').textContent = 'Pary: 0/8';
+                        cards.forEach((sym, idx) => {
+                            const card = document.createElement('div');
+                            card.style.cssText = 'width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#1a0008,#330015);border:1px solid rgba(255,0,64,0.3);cursor:pointer;transition:all 0.3s;user-select:none;border-radius:4px;';
+                            card.textContent = '❓';
+                            card.dataset.idx = idx;
+                            card.dataset.sym = sym;
+                            card.addEventListener('click', function() {
+                                if (!canFlip || flipped.includes(idx) || matched.includes(idx)) return;
+                                card.textContent = sym;
+                                card.style.background = 'linear-gradient(135deg,#330015,#660028)';
+                                card.style.borderColor = '#ff0040';
+                                card.style.boxShadow = '0 0 10px rgba(255,0,64,0.4)';
+                                flipped.push(idx);
+                                if (flipped.length === 2) {
+                                    moves++;
+                                    document.getElementById('mem-moves').textContent = 'Ruchy: ' + moves;
+                                    canFlip = false;
+                                    const [a, b] = flipped;
+                                    if (cards[a] === cards[b]) {
+                                        matched.push(a, b);
+                                        flipped = [];
+                                        canFlip = true;
+                                        document.getElementById('mem-pairs').textContent = `Pary: ${matched.length/2}/8`;
+                                        if (matched.length === 16) {
+                                            showToast(`GEASS MEMORY: Ukończono w ${moves} ruchach!`, 'success');
+                                        }
+                                    } else {
+                                        setTimeout(() => {
+                                            const allCards = grid.children;
+                                            allCards[a].textContent = '❓';
+                                            allCards[a].style.background = 'linear-gradient(135deg,#1a0008,#330015)';
+                                            allCards[a].style.borderColor = 'rgba(255,0,64,0.3)';
+                                            allCards[a].style.boxShadow = 'none';
+                                            allCards[b].textContent = '❓';
+                                            allCards[b].style.background = 'linear-gradient(135deg,#1a0008,#330015)';
+                                            allCards[b].style.borderColor = 'rgba(255,0,64,0.3)';
+                                            allCards[b].style.boxShadow = 'none';
+                                            flipped = [];
+                                            canFlip = true;
+                                        }, 700);
+                                    }
+                                }
+                            });
+                            grid.appendChild(card);
+                        });
+                    }
+                    memInit();
+                    document.getElementById('mem-restart').onclick = memInit;
+                };
+            }
             showToast(toastKey, type);
         } else {
             showToast('nt-mode-normal', 'info');
@@ -797,6 +1246,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const minecraftBtn = document.getElementById('minecraft-btn');
     if (minecraftBtn) minecraftBtn.addEventListener('click', () => setMode(document.body.classList.contains('minecraft-mode') ? null : 'minecraft-mode'));
+
+    const geassBtn = document.getElementById('geass-btn');
+    if (geassBtn) geassBtn.addEventListener('click', () => setMode(document.body.classList.contains('geass-mode') ? null : 'geass-mode'));
+
+    // ── Geass Music Selector ─────────────────────────────────────────────────
+    const geassMusicSelect = document.getElementById('geass-music-select');
+    if (geassMusicSelect) {
+        geassMusicSelect.addEventListener('change', (e) => {
+            const geassAudio = document.getElementById('geass-audio');
+            if (geassAudio && document.body.classList.contains('geass-mode')) {
+                const trackValue = e.target.value;
+                if (trackValue.startsWith('sc:')) {
+                    geassAudio.src = `https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/${trackValue.substring(3)}&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false`;
+                } else if (trackValue.startsWith('yt:')) {
+                    geassAudio.src = `https://www.youtube.com/embed/${trackValue.substring(3)}?autoplay=1&controls=0&showinfo=0&autohide=1&loop=1&playlist=${trackValue.substring(3)}`;
+                }
+            }
+        });
+    }
 
     const mcMusicSelect = document.getElementById('minecraft-music-select');
     if (mcMusicSelect) {
